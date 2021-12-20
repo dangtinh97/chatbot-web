@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\SearchMobileController::class,'index'])->name('nguoi-la');
+Route::get('/dieu-khoan-su-dung', function (){
+    return view('search-mobile.dieukhoan');
+})->name('dieu-khoan');
+
+Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class,'search'])->name('search');
