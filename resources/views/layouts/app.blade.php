@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="description" content="Cảnh giác với trò lừa đảo nháy máy">
+    <meta name="keywords" content="nguoila, nguoila.online">
+    <meta property="og:title" content="Cách tránh trò lừa đảo nháy máy">
+    <meta property="og:url" content="https://nguoila.online">
+    <meta property="og:image" content="https://tieudung.vn/dataimages/202106/07/huge/canhbaoluadao_1623050153.jpg">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
