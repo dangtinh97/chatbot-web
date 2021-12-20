@@ -8,4 +8,17 @@
             @endforeach
         </div>
     </div>
+    <h3>Góp ý mới nhất:</h3>
+    <table class="table">
+        <tbody class="text-white">
+        @foreach($comments as $comment)
+            <tr>
+                <td>{{$comment['time']}}</td>
+                <td>{{$comment['comment']}}</td>
+            </tr>
+        @endforeach
+        </tbody>
+
+
+    </table>
 @endsection

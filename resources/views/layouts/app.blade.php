@@ -20,6 +20,12 @@
         a:link {
             text-decoration: none;
         }
+        /*footer {*/
+        /*    position:fixed;*/
+        /*    bottom:0;*/
+        /*    width:100%;*/
+        /*    height:60px;*/
+        /*}*/
     </style>
 </head>
 <body class="bg-dark " style="width: 100%">
@@ -37,11 +43,20 @@
         @yield('content')
     </div>
 </div>
-<footer class="text-center " style="height: 40px"><a href="{{route('dieu-khoan')}}">điều khoản điều kiện</a></footer>
+<footer class="text-center mt-4" style=""><a href="{{route('dieu-khoan')}}">điều khoản điều kiện</a></footer>
 <script>
+
+    document.getElementById('mobile').addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            return search()
+        }
+    });
+
     function search(){
-        let mobile = document.getElementById('mobile').value.trim()
-        window.location.href = '{{route('search','_mobile')}}'.replace('_mobile',mobile)
+        let mobile = document.getElementById('mobile')
+        if(mobile.value.trim()==="") return false;
+        document.getElementById('button-addon2').innerHTML = "Xin chờ...";
+        window.location.href = '{{route('search','_mobile')}}'.replace('_mobile',mobile.value.trim())
     }
 </script>
 </body>

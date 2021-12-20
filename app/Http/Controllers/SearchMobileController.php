@@ -37,9 +37,17 @@ class SearchMobileController extends Controller
         $elements = $crawler->filter('.phone-detail.p-3')->each(function (Crawler $node){
             return $node->text();
         });
+
+        $comments = $crawler->filter('.comment-item')->each(function (Crawler $node){
+            return [
+                'time' => $node->filter('span')->text(),
+                'comment' => $node->filter('p')->text()
+            ];
+        });
+
         $text = $elements[0] ?? "";
         $text = str_replace(["Tóm lược","Mạng",'Thông tin khác:'],["<->Tóm lược","<->Mạng",'<->Thông tin khác:'],$text);
         $texts = (explode('<->',$text));
-        return view('search-mobile.search',compact('mobile','texts'));
+        return view('search-mobile.search',compact('mobile','texts','comments'));
     }
 }
