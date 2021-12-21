@@ -44,6 +44,13 @@ class SearchMobileController extends Controller
 
     public function vote(Request $request)
     {
+        $type = $request->get('type');
+        $mobileModel = Mobile::query();
+        $mobileFind = $mobileModel->where("mobile", $request->get('mobile'))->first();
+        if(!is_null($mobileFind)){
+            $mobileFind->increment($type."_me",1);
+        }
 
+        return response()->json((object)[]);
     }
 }

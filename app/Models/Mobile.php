@@ -11,5 +11,5 @@ class Mobile extends Model
     use SoftDeletes;
     use HasFactory;
     protected $table = 'nl_mobiles';
-    protected $fillable = ['mobile','vote_negative','vote_positive','vote_other','count_comment','count_views'];
+    protected $fillable = ['mobile','vote_negative','vote_positive','vote_other','count_comment','count_views','vote_negative_me','vote_positive_me'];
 }

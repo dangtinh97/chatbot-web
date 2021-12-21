@@ -18,6 +18,8 @@ class CreateNlMobilesTable extends Migration
             $table->string('mobile');
             $table->integer('vote_positive')->default(0);
             $table->integer('vote_negative')->default(0);
+            $table->integer('vote_positive_me')->default(0);
+            $table->integer('vote_negative_me')->default(0);
             $table->integer('vote_other')->default(0);
             $table->integer('count_comment')->default(0);
             $table->integer('count_views')->default(0);
