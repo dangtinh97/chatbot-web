@@ -10,6 +10,7 @@ class SearchMobileController extends Controller
 {
     public function search(Request $request, $mobile)
     {
+        $mobile = $request->get('mobile',$mobile);
         $arraySearch = [
             "count_views" => '/Lượt xem: (.*?) \\//',
             "vote_positive" => '/\\((\d+) tích cực/',
@@ -26,11 +27,11 @@ class SearchMobileController extends Controller
         }
 
         $mobileModel = Mobile::query();
-        $mobileFind = $mobileModel->where("mobile", trim($mobile))->first();
+        $mobileFind = $mobileModel->where("mobile", $mobile)->first();
 
         if (is_null($mobileFind)) {
             $mobileModel->create(array_merge([
-                'mobile' => trim($mobile),
+                'mobile' => $mobile,
                 'count_views' => 1,
             ],$result));
         } else {
