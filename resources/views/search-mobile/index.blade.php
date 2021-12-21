@@ -12,7 +12,7 @@
     </div>
     <hr>
     <div>
-        <h1 class="text-info mb-4">Top số điện thoại tra cứu nhiều nhẩt</h1>
+        <h1 class="text-info mb-4">Top số điện thoại tra cứu nhiều nhất</h1>
         <div class="d-flex flex-wrap border border-white">
             @foreach($views as $mobile)
                 <div style="min-width: 185px" class="flex-1  p-2">
@@ -21,12 +21,9 @@
             @endforeach
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col-12">
-
-
-
             <article class="mt-5 mb-5 pt-4 pb-4 pl-3 pr-3" style="background-color: white;">
                 <div style="margin: 20px">
                 <h2>Cảnh giác với trò lừa đảo nháy máy</h2>

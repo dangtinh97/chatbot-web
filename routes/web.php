@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\SearchMobileController::class,'index'])->name('nguoi-la');
-Route::get('/dieu-khoan-su-dung', function (){
+Route::get('/', [\App\Http\Controllers\SearchMobileController::class, 'index'])->name('nguoi-la');
+Route::get('/dieu-khoan-su-dung', function () {
     return view('search-mobile.dieukhoan');
 })->name('dieu-khoan');
 
-Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class,'search'])->name('search');
+Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class, 'search'])->name('search');
+
+Route::name('api.')->group(function () {
+    Route::group([
+        'prefix' => 'api'
+    ], function () {
+        Route::post('search/{mobile}', [\App\Http\Controllers\Api\SearchMobileController::class, 'search'])->name('search.store');
+
+    });
+});
