@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Goutte\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Sunra\PhpSimple\HtmlDomParser;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -11,6 +13,8 @@ class SearchMobileController extends Controller
 {
     public function index()
     {
+        User::all();
+
         $url = 'https://tracuusdt.com/';
 
         $client = new Client();
