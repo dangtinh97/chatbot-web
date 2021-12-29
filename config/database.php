@@ -109,7 +109,7 @@ return [
         'mongodb_dns'=>[
             'driver' => 'mongodb',
 //            'dns' => "mongodb+srv://".env('DB_USERNAME').":".env('DB_PASSWORD')."@".env('DB_HOST')."/".env('DB_DATABASE')."?retryWrites=true&w=majority",
-            'dns' => "mongodb+srv://dangtinh:1234567890@cluster0.yxbgh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+            'dns' => env('DB_DNS'),
             'database' => env('DB_DATABASE','nguoi-la'),
             'host' => env('DB_HOST','cluster0.yxbgh.mongodb.net')
         ]
