@@ -7,11 +7,12 @@ RUN composer install --ignore-platform-reqs
 FROM php:7.4-apache
 
 RUN docker-php-ext-install pdo pdo_mysql
-
 #install some base extensions
 RUN apt-get update && \
      apt-get install -y \
          libzip-dev \
+    libssl-dev \
+    pkg-config \
     && docker-php-ext-install zip \
     && pecl install mongodb \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \

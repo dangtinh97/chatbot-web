@@ -113,11 +113,12 @@ return [
             'password' => env('DB_PASSWORD'),
             'host' => explode(',',env('DB_HOST')),
             'options'=>[
-                'replicaSet' => 'atlas-y2vkrp-shard-0',
+                'replicaSet' => env('REPLICA_SET', 'atlas-y2vkrp-shard-0'),
                 'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // required with Mongo 3+,
                 'authMechanism' => env('DB_AUTHMECHANISM', 'SCRAM-SHA-1'),
-                'tls' => env('DB_TLS', true),
-                'tlsAllowInvalidHostnames' => env('DB_TLS_ALLOW_INVALID_HOSTNAMES', true),
+                'tls' => env('DB_TLS', false),
+                'tlsAllowInvalidHostnames' => env('DB_TLS_ALLOW_INVALID_HOSTNAMES', false),
+                'readPreference' => env('READ_PREFERENCE', 'primary'),
 
             ]
         ]
