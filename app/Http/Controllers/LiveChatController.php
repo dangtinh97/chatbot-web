@@ -30,6 +30,10 @@ class LiveChatController extends Controller
         }else{
             $user = User::query()->find($userOid)->first();
         }
+
+        if(is_null($user)){
+            return $this->index($request);
+        }
         $token = Auth::login($user);
         setcookie('token',$token);
         return view('live-chat.chat',compact('token','userOid','user'));
