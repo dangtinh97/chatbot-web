@@ -2,13 +2,60 @@
 
 namespace App\Models;
 
-use Jenssegers\Mongodb\Eloquent\Model;
+use Jenssegers\Mongodb\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model {
+class User extends Authenticatable implements JWTSubject{
     protected $collection="users";
     protected $fillable = [
-        'full_name','is_online','login_on_web','login_on_app','short_token'
+        'full_name','is_online','online_in_browser','online_in_app','short_token','password',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public static function nameAnimal()
+    {
+        $string = "Con sóc
+Con chó
+Tinh tinh
+Con bò
+Sư tử
+Gấu trúc
+Hải mã
+Rái cá
+Chuột
+Con chuột túi
+Con dê
+Con ngựa
+Con khỉ
+Bò
+Gấu túi
+Chuột chũi
+Con voi
+Báo
+Hà mã
+Hươu cao cổ
+Cáo
+Chó sói
+Nhím
+Cừu
+Con nai";
+        $arr = explode("\n",$string);
+        return ucfirst(str_replace("Con ","",$arr[array_rand($arr)]))." ẩn danh";
+    }
 }
 
 //use Illuminate\Contracts\Auth\MustVerifyEmail;
