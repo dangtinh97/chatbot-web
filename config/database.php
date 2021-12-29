@@ -106,12 +106,20 @@ return [
             ],
         ],
 
-        'mongodb_dns'=>[
+        'mongodb_replicaset'=>[
             'driver' => 'mongodb',
-//            'dns' => "mongodb+srv://".env('DB_USERNAME').":".env('DB_PASSWORD')."@".env('DB_HOST')."/".env('DB_DATABASE')."?retryWrites=true&w=majority",
-            'dns' => env('DB_DNS'),
-            'database' => env('DB_DATABASE','nguoi-la'),
-            'host' => env('DB_HOST','cluster0.yxbgh.mongodb.net')
+            'database' => env('DB_DATABASE','admin'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'host' => explode(',',env('DB_HOST')),
+            'options'=>[
+                'replicaSet' => 'atlas-y2vkrp-shard-0',
+                'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // required with Mongo 3+,
+                'authMechanism' => env('DB_AUTHMECHANISM', 'SCRAM-SHA-1'),
+                'tls' => env('DB_TLS', true),
+                'tlsAllowInvalidHostnames' => env('DB_TLS_ALLOW_INVALID_HOSTNAMES', true),
+
+            ]
         ]
     ],
 
