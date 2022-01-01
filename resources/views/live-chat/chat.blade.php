@@ -275,6 +275,8 @@
         const SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT = "user-leave-room-single-chat"
         let roomChat = null
         let keyCodeEnd = 0;
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
         document.addEventListener("DOMContentLoaded",function (){
             let socketIsConnect = false;
             let socket = io('{{env('URL_SOCKET')}}',{
@@ -288,7 +290,7 @@
             })
 
             $(this).on('keydown','.type_msg',function (e){
-                if(keyCodeEnd!==16 && e.keyCode===13) {
+                if(keyCodeEnd!==16 && e.keyCode===13 && !isMobile) {
                     e.preventDefault();
                     sendMessage()
                 }
@@ -363,7 +365,8 @@
 
             function inChatting(dataRoom)
             {
-                $(".show_start").fadeOut()
+                $(".type_msg").focus();
+                $(".show_start").fadeOut(1000)
                 $(".msg_head").removeClass('d-none')
                 $(".card-footer").removeClass('d-none')
                 userOnline()
