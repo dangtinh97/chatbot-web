@@ -7,11 +7,11 @@
     <meta property="og:title" content="Trò chuyện , tâm sự cùng với những người lạ!">
     <meta property="og:url" content="https://nguoila.online/live-chat">
     <meta property="og:image" content="{{asset('assets/images/logo-page.png')}}">
-    <link rel="icon" href="{{asset('assets/logo-page.ico')}}">
+    <link rel="icon" href="https://storage.cloud.google.com/monstar-lab/logo-page.ico">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CHAT</title>
+    <title>Người lạ ơi!</title>
     <link rel="stylesheet" href="{{asset('assets/css/page-chat.css')}}">
     <script
         src="https://code.jquery.com/jquery-3.6.0.js"
