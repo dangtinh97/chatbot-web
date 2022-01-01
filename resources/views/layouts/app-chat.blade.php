@@ -55,10 +55,14 @@
     }
 
     function getCookie(name=''){
+        name+="="
         const cookies = document.cookie.split(';')
         let value='';
         cookies.forEach(function (cookie){
-            if(cookie.indexOf(name+"=")===0) value= cookie.replace(name+"=",'')
+            cookie = cookie.trim()
+            if(cookie.indexOf(name)===0){
+                value = cookie.replace((name),'')
+            }
         })
         return value;
     }
@@ -71,6 +75,7 @@
                 'X-CSRF-TOKEN': '{{@csrf_token()}}',
                 'Authentication':'Bearer '+getCookie('token')
             },
+            typeData:"JSON",
             type: method,
             data: data,
             success: (res) => {

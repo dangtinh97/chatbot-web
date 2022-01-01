@@ -83,10 +83,7 @@
 
                 <div class="col-md-8 col-xl-12 chat" id="form-chat">
                     <div class="card">
-                        <div class="card-header bg-white text-center show_start">
-                            <p>Chúng tớ đang tìm người để kết nối, có thể hơi lâu 1 chút.</p>
-                        </div>
-                        <div class="card-header d-none msg_head">
+                        <div class="card-header msg_head">
                             <div class="d-flex bd-highlight">
                                 <div class="img_cont">
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
@@ -105,10 +102,10 @@
                             <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
                             <div class="action_menu">
                                 <ul>
-                                    <li><i class="fas fa-user-circle"></i> View profile</li>
-                                    <li><i class="fas fa-users"></i> Add to close friends</li>
-                                    <li><i class="fas fa-plus"></i> Add to group</li>
-                                    <li><i class="fas fa-ban"></i> Block</li>
+{{--                                    <li><i class="fas fa-user-circle"></i> View profile</li>--}}
+{{--                                    <li><i class="fas fa-users"></i> Add to close friends</li>--}}
+                                    <li id="connect-chat"><i class="fas fa-plus" ></i>Kết nối!</li>
+                                    <li id="end-chat"><i class="fas fa-ban" ></i>Rời chat</li>
                                 </ul>
                             </div>
                         </div>
@@ -273,11 +270,17 @@
         const STATUS_ROOM_IN_CHATTING = "IN_CHATTING"
         const SOCKET_SEND_MESSAGE_SINGLE_CHAT = "single-chat-send-message"
         const SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT = "user-leave-room-single-chat"
+        const SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT = "end-chat-single"
         let roomChat = null
         let keyCodeEnd = 0;
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+
         document.addEventListener("DOMContentLoaded",function (){
+            $('#action_menu_btn').click(function(){
+                $('.action_menu').toggle();
+            });
+
             let socketIsConnect = false;
             let socket = io('{{env('URL_SOCKET')}}',{
                 transports: ['websocket', 'polling'],
@@ -294,29 +297,24 @@
                     e.preventDefault();
                     sendMessage()
                 }
-
                 keyCodeEnd = e.keyCode
-                console.log(e.keyCode)
             })
 
             socket.on("connect",function (){
-                $(".user_info p").html("")
-                socketIsConnect = true;
-                console.log(socket.id)
+                $(".user_info p").html("Vui lòng chờ...")
                 socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
+                socketIsConnect = true;
                 socket.on(SOCKET_JOIN_SINGLE_CHAT,function (response){
                     roomChat = response;
-                    console.log(response)
                     if(response.status_room === STATUS_ROOM_WAIT_CONNECT) return waitUserConnect()
                     if(response.status_room === STATUS_ROOM_IN_CHATTING) return inChatting(response)
 
                     // userJoinChat(response)
 
                 })
-
                 socket.on(SOCKET_SEND_MESSAGE_SINGLE_CHAT,(response)=>onMessage(response))
                 socket.on(SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT,()=>userLeaveRoom())
-
+                socket.on(SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT,(data)=>endChatSingle(data.from_user_oid))
                 socket.on("disconnect",function (){
                     $(".user_info p").html("kết nối internet không ổn định...")
                    //  let c = confirm("Có thể bạn đang mất kết nối internet, vui lòng kết nối lại!")
@@ -325,6 +323,25 @@
                 })
             })
 
+            $(this).on('click','#connect-chat',function (){
+                if(!socketIsConnect) return false;
+                socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
+                $(".user_info p").html("Đang tìm kiếm!")
+                $('.action_menu').toggle();
+                processChat(false)
+                waitUserConnect()
+            })
+
+            function endChatSingle(userEndChat)
+            {
+                if(userEndChat!='{{$userOid}}'){
+                    $(".user_info p").html("Người lạ đã rời chat!")
+                }else{
+                    $(".user_info p").html("Chưa kết nối với ai!")
+                }
+
+                processChat(false)
+            }
 
             function onMessage(data)
             {
@@ -348,7 +365,6 @@
                 $(".card-body").append(html)
                 if(data.from_user_oid == '{{$userOid}}'){
                     let objDiv = document.getElementsByClassName("msg_card_body")[0];
-                    console.log(objDiv)
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }
             }
@@ -365,13 +381,29 @@
 
             function inChatting(dataRoom)
             {
+                $(".user_info p").html("Đã kết nối!")
                 $(".type_msg").focus();
                 $(".show_start").fadeOut(1000)
                 $(".msg_head").removeClass('d-none')
                 $(".card-footer").removeClass('d-none')
                 userOnline()
-                // request('GET','123',{})
+                processChat(true)
                 $(".msg_card_body loader").remove()
+            }
+
+            function processChat(isChat)
+            {
+                if(isChat){
+                    $(".card-body .loader").fadeOut()
+                    $("#end-chat").fadeIn()
+                    $(".card-footer").fadeIn()
+                    $("#connect-chat").fadeOut()
+                }else {
+                    $("#end-chat").fadeOut()
+                    $(".card-body").html("")
+                    $("#connect-chat").fadeIn()
+                    $(".card-footer").fadeOut()
+                }
             }
 
             function waitUserConnect()
@@ -394,6 +426,20 @@
                return $(".type_msg").val("")
             }
 
+            $(this).on('click','#end-chat',async function (){
+                if(roomChat===null || typeof roomChat.room_oid === 'undefined') return
+                const c = confirm('Bạn có muốn kết thúc cuộc trò chuyện?')
+                if(!c) return false;
+                $('.action_menu').toggle();
+                await request('{{route('api.end-chat-single')}}',"POST",{
+                    room_oid:roomChat.room_oid
+                }).then(function (response){
+                    if(response.status!==200) return;
+                    socket.emit(SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT,{
+                        room_oid:roomChat.room_oid
+                    })
+                })
+            })
         })
     </script>
 @endsection

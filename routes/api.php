@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//Route::get('set-online')
+Route::post('end-chat-single',[\App\Http\Controllers\Api\ChatController::class,'endChat'])->middleware('auth')->name('api.end-chat-single');
