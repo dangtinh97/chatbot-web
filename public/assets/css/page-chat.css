@@ -81,8 +81,8 @@
     background-color: rgba(0,0,0,0.3);
 }
 .user_img{
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     border:1.5px solid #f5f6fa;
 
 }
@@ -107,8 +107,8 @@
     width:15px;
     background-color: #4cd137;
     border-radius: 50%;
-    bottom: 0.2em;
-    right: 0.4em;
+    bottom: 1.2em;
+    right: 1.4em;
     border:1.5px solid white;
 }
 .offline{
@@ -117,7 +117,7 @@
 .user_info{
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
 }
 .user_info span{
     font-size: 20px;
@@ -143,7 +143,7 @@
     margin-left: 10px;
     border-radius: 25px;
     background-color: #82ccdd;
-    padding: 10px;
+    padding: 3px 5px!important;
     position: relative;
 }
 .msg_cotainer_send{
@@ -152,7 +152,7 @@
     margin-right: 10px;
     border-radius: 25px;
     background-color: #78e08f;
-    padding: 10px;
+    padding: 3px 5px!important;
     position: relative;
 }
 .msg_time{
@@ -210,6 +210,7 @@
     background-color: rgba(0,0,0,0.2);
 }
 @media(max-width: 576px) {
+
     #form-chat{
         padding: 0!important;
     }
@@ -220,4 +221,64 @@
     .contacts_card {
         margin-bottom: 15px !important;
     }
+
+
+
 }
+
+
+/*loading*/
+.loader,
+.bar {
+    width: 60px;
+    height: 20px;
+}
+.bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+}
+.bar::before,
+.bar::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    background: #b9e0ff;
+    opacity: 0;
+    box-shadow: 1px 1px 4px rgba(0,0,0,.15);
+    border-radius: 10px;
+    animation: slideleft 3s ease-in-out infinite;
+}
+
+.bar1::before { animation-delay: 0.00s }
+.bar1::after  { animation-delay: 0.3s }
+.bar2::before { animation-delay: 0.60s }
+.bar2::after  { animation-delay: 0.90s }
+.bar3::before { animation-delay: 1.20s }
+.bar3::after  { animation-delay: 1.50s }
+
+@keyframes slideleft {
+    10% { opacity: 0; transform: scale(0); right: 0 }
+    50% { opacity: 1; transform: scale(1) }
+    90% { opacity: 0; transform: scale(0); right: 100% }
+}
+
+.loader{
+    position: fixed;
+    bottom: 80px;
+    left: 46%;
+}
+
+/*html, body {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    background: linear-gradient(20deg, #0c57a1, #3f88c5 45%) fixed;*/
+/*}*/

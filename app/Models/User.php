@@ -6,7 +6,7 @@ use Jenssegers\Mongodb\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject{
-    protected $collection="users";
+    protected $collection="chat_users";
     protected $fillable = [
         'full_name','is_online','online_in_browser','online_in_app','short_token','password',
     ];

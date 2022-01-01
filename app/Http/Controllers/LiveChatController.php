@@ -25,13 +25,16 @@ class LiveChatController extends Controller
                 'online_in_browser' => true,
                 'password' => Hash::make(time())
             ]);
+
             $userOid = $user->_id;
             setcookie('user_oid', $userOid);
         }else{
-            $user = User::query()->find($userOid)->first();
+            $find = User::query()->find($userOid);
+            $user = !is_null($find) ? $find->first() : null;
         }
 
         if(is_null($user)){
+            unset($_COOKIE['user_oid']);
             return $this->index($request);
         }
         $token = Auth::login($user);
