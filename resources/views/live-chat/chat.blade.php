@@ -324,7 +324,7 @@
                      parent = 'end'
                 }
                 console.log('{{$userOid}}',data.from_user_oid,classSendFrom)
-                let html='<div  class="d-flex justify-content-'+parent+' mb-4"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message+'</div></div>';
+                let html='<div  class="d-flex justify-content-'+parent+' mb-4"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
                 $(".card-body").append(html)
             }
 
