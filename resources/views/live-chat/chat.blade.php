@@ -274,6 +274,7 @@
         const SOCKET_SEND_MESSAGE_SINGLE_CHAT = "single-chat-send-message"
         const SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT = "user-leave-room-single-chat"
         let roomChat = null
+        let keyCodeEnd = 0;
         document.addEventListener("DOMContentLoaded",function (){
             let socketIsConnect = false;
             let socket = io('{{env('URL_SOCKET')}}',{
@@ -286,7 +287,18 @@
                 }
             })
 
+            $(this).on('keydown','.type_msg',function (e){
+                if(keyCodeEnd!==16 && e.keyCode===13) {
+                    e.preventDefault();
+                    sendMessage()
+                }
+
+                keyCodeEnd = e.keyCode
+                console.log(e.keyCode)
+            })
+
             socket.on("connect",function (){
+                $(".user_info p").html("")
                 socketIsConnect = true;
                 console.log(socket.id)
                 socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
@@ -304,11 +316,13 @@
                 socket.on(SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT,()=>userLeaveRoom())
 
                 socket.on("disconnect",function (){
-                    let c = confirm("Có thể bạn đang mất kết nối internet, vui lòng kết nối lại!")
-                    if(c) return window.location.reload()
-                   return $("body").html("<h1>Vui lòng tải lại trang web!</h1>")
+                    $(".user_info p").html("kết nối internet không ổn định...")
+                   //  let c = confirm("Có thể bạn đang mất kết nối internet, vui lòng kết nối lại!")
+                   //  if(c) return window.location.reload()
+                   // return $("body").html("<h1>Vui lòng tải lại trang web!</h1>")
                 })
             })
+
 
             function onMessage(data)
             {
@@ -319,13 +333,22 @@
                     parent = 'start'
                     classSendFrom='msg_cotainer';
                 }else{
+
                     //sms my
                      classSendFrom = 'msg_cotainer_send'
                      parent = 'end'
                 }
-                console.log('{{$userOid}}',data.from_user_oid,classSendFrom)
+                var match = /\r|\n/.exec(data.message);
+                if (match) {
+                    classSendFrom += ' update-border-radius'
+                }
                 let html='<div  class="d-flex justify-content-'+parent+' mb-4"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
                 $(".card-body").append(html)
+                if(data.from_user_oid == '{{$userOid}}'){
+                    let objDiv = document.getElementsByClassName("msg_card_body")[0];
+                    console.log(objDiv)
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                }
             }
 
             function userLeaveRoom()
@@ -336,7 +359,6 @@
             function userOnline()
             {
                 if(roomChat.status_room==STATUS_ROOM_IN_CHATTING) $(".online_icon").css("background-color","#4cd137")
-
             }
 
             function inChatting(dataRoom)
@@ -346,7 +368,7 @@
                 $(".card-footer").removeClass('d-none')
                 userOnline()
                 // request('GET','123',{})
-                //$(".msg_card_body").html("")
+                $(".msg_card_body loader").remove()
             }
 
             function waitUserConnect()
@@ -355,12 +377,12 @@
             }
 
             $(this).on("click","#btn-send-chat",()=>{
-
                 return sendMessage()
             })
 
             function sendMessage(){
                 let mess = $(".type_msg").val().trim()
+                $(".type_msg").focus();
                 if(mess == "" ||!socketIsConnect || roomChat===null || typeof roomChat.room_oid==="undefined") return false
                 socket.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT,{
                     room_oid:roomChat.room_oid,
