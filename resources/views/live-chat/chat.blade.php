@@ -290,8 +290,15 @@
                 },
                 query:{
                     user_id:'{{$userOid}}'
-                }
+                },
+                timestampRequests:true,
+                forceBase64:true,
             })
+
+            socket.on("connect_error", () => {
+                // revert to classic upgrade
+                socket.io.opts.transports = ["polling", "websocket"];
+            });
 
             $(this).on('keydown','.type_msg',function (e){
                 if(keyCodeEnd!==16 && e.keyCode===13 && !isMobile) {
@@ -302,9 +309,9 @@
             })
 
             socket.on("connect",function (){
-                console.log(socket.id);
                 $(".user_info p").html("Vui lòng chờ...")
-                socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
+                if(socket.connected) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
+
                 socketIsConnect = true;
                 socket.on(SOCKET_JOIN_SINGLE_CHAT,function (response){
                     roomChat = response;
@@ -344,10 +351,16 @@
 
                 processChat(false)
             }
-
+            let timeEnd = 0;
+            let dataEnd = {}
             function onMessage(data)
             {
-                console.log(console.log(data));
+                console.log(socket)
+                let timeNow = (new Date()).getTime();
+                if(dataEnd===data && timeNow-timeEnd<100) return;
+                timeEnd = timeNow;
+                dataEnd = data;
+
                 let classSendFrom = ''
                 let parent = ''
                 if(data.from_user_oid != '{{$userOid}}'){
@@ -421,7 +434,7 @@
                 let mess = $(".type_msg").val().trim()
                 $(".type_msg").focus();
                 if(mess == "" ||!socketIsConnect || roomChat===null || typeof roomChat.room_oid==="undefined") return false
-                socket.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT,{
+                socket.volatile.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT,{
                     room_oid:roomChat.room_oid,
                     message:mess
                 })
@@ -454,10 +467,18 @@
             });
         })
 
+        const defaultHeightScreen = window.innerHeight * 0.1;
+
         window.addEventListener('resize', () => {
             // We execute the same script as before
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
+             let vh = window.innerHeight * 0.1;
+             $(".user_info p").html(vh)
+             if(isMobile){
+                 console.log(vh)
+                 $(".card").css('height',`${vh}vh`)
+             }
+
+            // document.documentElement.style.setProperty('--vh', `${vh}px`);
         });
     </script>
 @endsection
