@@ -467,20 +467,7 @@
             });
         })
 
-        const defaultHeightScreen = window.innerHeight * 0.1;
-        if(isMobile) $(".card").css('height',`92vh`)
-        $(".user_info p").html(defaultHeightScreen)
-        window.addEventListener('resize', () => {
-            // We execute the same script as before
-             let vh = window.innerHeight * 0.1;
-             $(".user_info p").html(vh)
-             if(isMobile){
-                 if(vh==defaultHeightScreen) $(".card").css('height',`92vh`)
-                 if(vh>defaultHeightScreen) $(".card").css('height',`100vh`)
-                 // $(".card").css('height',`${vh}vh`)
-             }
+        if(isMobile) $(".card").css('height',`${window.innerHeight-3}px`)
 
-            // document.documentElement.style.setProperty('--vh', `${vh}px`);
-        });
     </script>
 @endsection
