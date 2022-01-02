@@ -234,12 +234,17 @@
         margin-bottom: 15px !important;
     }
 
-    .msg_card_body ,.card-footer{
+    .msg_card_body{
+        padding: 0.4rem 0 0 0!important;
+    }
+
+    .card-footer{
         padding: 0!important;
     }
 
-    .img_cont{
-        padding: 0.5rem!important;
+
+    .msg_head{
+        padding: 0.3rem!important;
     }
 
 
