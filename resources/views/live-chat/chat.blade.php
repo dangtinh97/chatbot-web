@@ -391,7 +391,7 @@
             function socketChatTyping(data)
             {
                 if(timeIntervalClearOffTyping!==null) clearInterval(timeIntervalClearOffTyping);
-                //if(data.from_user_oid=='{{$userOid}}') return false;
+                if(data.from_user_oid=='{{$userOid}}') return false;
                 if(data.status==="TYPING") $("#wave").removeClass('d-none').fadeIn()
                 if(data.status==="STOP_TYPING") $("#wave").fadeOut()
                 let timeCloseTypingHtml = 5000;
