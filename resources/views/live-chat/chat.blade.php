@@ -436,6 +436,7 @@
                 await request('{{route('api.end-chat-single')}}',"POST",{
                     room_oid:roomChat.room_oid
                 }).then(function (response){
+                    processChat(false)
                     if(response.status!==200) return;
                     socket.emit(SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT,{
                         room_oid:roomChat.room_oid
