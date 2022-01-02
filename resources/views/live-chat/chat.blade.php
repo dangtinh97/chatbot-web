@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
-                            <div class="action_menu">
+                            <div class="action_menu" id="action_menu">
                                 <ul>
 {{--                                    <li><i class="fas fa-user-circle"></i> View profile</li>--}}
 {{--                                    <li><i class="fas fa-users"></i> Add to close friends</li>--}}
@@ -275,9 +275,10 @@
         let keyCodeEnd = 0;
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-
         document.addEventListener("DOMContentLoaded",function (){
+            waitUserConnect()
             $('#action_menu_btn').click(function(){
+
                 $('.action_menu').toggle();
             });
 
@@ -301,6 +302,7 @@
             })
 
             socket.on("connect",function (){
+                console.log(socket.id);
                 $(".user_info p").html("Vui lòng chờ...")
                 socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
                 socketIsConnect = true;
@@ -345,7 +347,7 @@
 
             function onMessage(data)
             {
-
+                console.log(console.log(data));
                 let classSendFrom = ''
                 let parent = ''
                 if(data.from_user_oid != '{{$userOid}}'){
@@ -440,6 +442,21 @@
                     })
                 })
             })
+
+            window.addEventListener('click', function(e){
+                if (document.getElementById('action_menu').contains(e.target) || document.getElementById('action_menu_btn').contains(e.target)){
+                    // Clicked in box
+                } else{
+                    if($("#action_menu").css('display')==="block") $('.action_menu').toggle();
+
+                }
+            });
         })
+
+        window.addEventListener('resize', () => {
+            // We execute the same script as before
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        });
     </script>
 @endsection
