@@ -8,7 +8,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject{
     protected $collection="chat_users";
     protected $fillable = [
-        'full_name','is_online','online_in_browser','online_in_app','short_token','password',
+        'full_name','is_online','online_in_browser','online_in_app','short_token','password','wait_connect',
     ];
 
     public function getJWTIdentifier()

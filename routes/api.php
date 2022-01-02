@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('end-chat-single',[\App\Http\Controllers\Api\ChatController::class,'endChat'])->middleware('auth')->name('api.end-chat-single');
+Route::post('set-wait-connect',[\App\Http\Controllers\Api\UserController::class,'setWaitConnect'])->middleware('auth')->name('api.set-wait-connect');

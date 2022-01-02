@@ -17,13 +17,13 @@ class LiveChatController extends Controller
     public function index(Request $request)
     {
         $userOid = $_COOKIE['user_oid'] ?? null;
-
         if (is_null($userOid)) {
             $name = User::nameAnimal();
             $user = User::query()->create([
                 'full_name' => $name,
                 'online_in_browser' => true,
-                'password' => Hash::make(time())
+                'password' => Hash::make(time()),
+                'wait_connect' => true
             ]);
 
             $userOid = $user->_id;
@@ -39,6 +39,7 @@ class LiveChatController extends Controller
         }
         $token = Auth::login($user);
         setcookie('token',$token);
-        return view('live-chat.chat',compact('token','userOid','user'));
+        $waitConnect = $user->wait_connect ?? true;
+        return view('live-chat.chat',compact('token','userOid','user','waitConnect'));
     }
 }

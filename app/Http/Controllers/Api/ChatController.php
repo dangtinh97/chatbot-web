@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Responses\ResponseError;
 use App\Http\Responses\ResponseSuccess;
 use App\Models\SingleChat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use MongoDB\BSON\ObjectId;
@@ -25,6 +26,9 @@ class ChatController extends Controller
                 'status' => SingleChat::STATUS_CLOSE
             ]
         ])->first();
+        User::query()->find(Auth::id())->update([
+            'wait_connect' => false
+        ]);
         if(is_null($find)) return response()->json((new ResponseError())->toArray());
         $find->update([
             'status' => SingleChat::STATUS_CLOSE

@@ -94,7 +94,14 @@
                                     <p></p>
 {{--                                    <p>1767 Messages</p>--}}
                                 </div>
-                                <div class="video_cam">
+
+                                <div id="wave" class="d-none is_typing">
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                    <span class="dot"></span>
+                                </div>
+
+                                <div class="video_cam d-none">
                                     <span><i class="fas fa-video"></i></span>
                                     <span><i class="fas fa-phone"></i></span>
                                 </div>
@@ -259,6 +266,10 @@
                 </div>
             </div>
         </div>
+
+        <audio class="d-none" id="notification-new-message">
+            <source src="{{asset('assets/mp3/notification-new-message.wav')}}" type="audio/wav">
+        </audio>
     </section>
 @endsection
 @section('scripts')
@@ -271,14 +282,24 @@
         const SOCKET_SEND_MESSAGE_SINGLE_CHAT = "single-chat-send-message"
         const SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT = "user-leave-room-single-chat"
         const SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT = "end-chat-single"
+        const SOCKET_CHAT_IS_TYPING = "chat-typing"
         let roomChat = null
         let keyCodeEnd = 0;
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        let userIsTab = true;
+        let waitingConnect = false;
+        let timeSendSocketTypeKeyboard = 0;
+        let timeIntervalSendSocketTypeKeyboard = null;
+        let timeIntervalClearOffTyping = null;
+        let timeIntervalTypeKeyboard = null;
+        let userWaitConnect = '{{(bool)$waitConnect ?? true}}' == 1 ? true:false //xem user có đang chờ kết nối hay không
+        document.addEventListener("visibilitychange", event => {
+            userIsTab = document.visibilityState === "visible";
+        })
 
         document.addEventListener("DOMContentLoaded",function (){
             waitUserConnect()
             $('#action_menu_btn').click(function(){
-
                 $('.action_menu').toggle();
             });
 
@@ -301,16 +322,53 @@
             });
 
             $(this).on('keydown','.type_msg',function (e){
+                processTypeKeyboard();
                 if(keyCodeEnd!==16 && e.keyCode===13 && !isMobile) {
                     e.preventDefault();
+                    $("#wave").fadeOut()
                     sendMessage()
                 }
                 keyCodeEnd = e.keyCode
             })
 
+            function processTypeKeyboard()
+            {
+                if(timeSendSocketTypeKeyboard<=0){
+                    timeSendSocketTypeKeyboard = 3000;
+                    timeIntervalSendSocketTypeKeyboard = setInterval(function (){
+                        timeSendSocketTypeKeyboard -= 100;
+                        if(timeSendSocketTypeKeyboard<=0 && socket.connected)
+                        {
+                            timeSendSocketTypeKeyboard=3000
+                            socket.emit(SOCKET_CHAT_IS_TYPING,{
+                                status:"TYPING",
+                                room_oid:roomChat.room_oid
+                            })
+                        }
+                    },100)
+                }
+
+                let timeMax = 5000;
+                if(timeIntervalTypeKeyboard!==null) clearInterval(timeIntervalTypeKeyboard);
+                timeIntervalTypeKeyboard = setInterval(()=>{
+                    timeMax-=100;
+                    if(timeMax<=0){
+                        if(timeIntervalSendSocketTypeKeyboard !==null) clearInterval(timeIntervalSendSocketTypeKeyboard)
+                        clearInterval(timeIntervalTypeKeyboard)
+                        timeSendSocketTypeKeyboard = 0;
+                        socket.volatile.emit(SOCKET_CHAT_IS_TYPING,{
+                            status:"STOP_TYPING",
+                            room_oid:roomChat.room_oid
+                        })
+                    }
+                },100)
+
+                return true;
+            }
+
             socket.on("connect",function (){
                 $(".user_info p").html("Vui lòng chờ...")
-                if(socket.connected) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
+                if(socket.connected && userWaitConnect) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
 
                 socketIsConnect = true;
                 socket.on(SOCKET_JOIN_SINGLE_CHAT,function (response){
@@ -324,15 +382,31 @@
                 socket.on(SOCKET_SEND_MESSAGE_SINGLE_CHAT,(response)=>onMessage(response))
                 socket.on(SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT,()=>userLeaveRoom())
                 socket.on(SOCKET_USER_END_CHAT_ROOM_SINGLE_CHAT,(data)=>endChatSingle(data.from_user_oid))
+                socket.on(SOCKET_CHAT_IS_TYPING,(data)=>socketChatTyping(data))
                 socket.on("disconnect",function (){
                     $(".user_info p").html("kết nối internet không ổn định...")
-                   //  let c = confirm("Có thể bạn đang mất kết nối internet, vui lòng kết nối lại!")
-                   //  if(c) return window.location.reload()
-                   // return $("body").html("<h1>Vui lòng tải lại trang web!</h1>")
                 })
             })
 
+            function socketChatTyping(data)
+            {
+                if(timeIntervalClearOffTyping!==null) clearInterval(timeIntervalClearOffTyping);
+                //if(data.from_user_oid=='{{$userOid}}') return false;
+                if(data.status==="TYPING") $("#wave").removeClass('d-none').fadeIn()
+                if(data.status==="STOP_TYPING") $("#wave").fadeOut()
+                let timeCloseTypingHtml = 5000;
+                timeIntervalClearOffTyping = setInterval(function (){
+                    timeCloseTypingHtml-=100;
+                    if(timeCloseTypingHtml<=0){
+                        clearInterval(timeIntervalClearOffTyping)
+                        $("#wave").fadeOut()
+                    }
+                },100)
+            }
+
             $(this).on('click','#connect-chat',function (){
+                request('{{route('api.set-wait-connect')}}','POST',{})
+                userWaitConnect = true;
                 if(!socketIsConnect) return false;
                 socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
                 $(".user_info p").html("Đang tìm kiếm!")
@@ -348,14 +422,12 @@
                 }else{
                     $(".user_info p").html("Chưa kết nối với ai!")
                 }
-
                 processChat(false)
             }
             let timeEnd = 0;
             let dataEnd = {}
             function onMessage(data)
             {
-                console.log(socket)
                 let timeNow = (new Date()).getTime();
                 if(dataEnd===data && timeNow-timeEnd<100) return;
                 timeEnd = timeNow;
@@ -366,8 +438,8 @@
                 if(data.from_user_oid != '{{$userOid}}'){
                     parent = 'start'
                     classSendFrom='msg_cotainer';
+                    playAudio()
                 }else{
-
                     //sms my
                      classSendFrom = 'msg_cotainer_send'
                      parent = 'end'
@@ -376,12 +448,25 @@
                 if (match) {
                     classSendFrom += ' update-border-radius'
                 }
-                let html='<div  class="d-flex justify-content-'+parent+' mb-2"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
+                let html='<div  class="d-flex justify-content-'+parent+' mb-2"> <div style="max-width: 75%;white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
                 $(".card-body").append(html)
                 if(data.from_user_oid == '{{$userOid}}'){
                     let objDiv = document.getElementsByClassName("msg_card_body")[0];
                     objDiv.scrollTop = objDiv.scrollHeight;
                 }
+            }
+
+            function checkUserJoinRoom()
+            {
+                if(waitingConnect) playAudio()
+            }
+
+            function playAudio()
+            {
+                if(userIsTab) return false
+                var audio = document.getElementById("notification-new-message");
+                audio.volume = 0.1;
+                audio.play()
             }
 
             function userLeaveRoom()
@@ -396,6 +481,8 @@
 
             function inChatting(dataRoom)
             {
+                checkUserJoinRoom();
+                waitingConnect = false;
                 $(".user_info p").html("Đã kết nối!")
                 $(".type_msg").focus();
                 $(".show_start").fadeOut(1000)
@@ -423,6 +510,7 @@
 
             function waitUserConnect()
             {
+                waitingConnect = true;
                 $(".msg_card_body").html('<div class="loader"><div class="bar bar1"></div><div class="bar bar2"></div><div class="bar bar3"></div> </div>')
             }
 
@@ -432,7 +520,7 @@
 
             function sendMessage(){
                 let mess = $(".type_msg").val().trim()
-                $(".type_msg").focus();
+                if($('.type_msg').is(':focus')) $(".type_msg").focus();
                 if(mess == "" ||!socketIsConnect || roomChat===null || typeof roomChat.room_oid==="undefined") return false
                 socket.volatile.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT,{
                     room_oid:roomChat.room_oid,
@@ -442,6 +530,7 @@
             }
 
             $(this).on('click','#end-chat',async function (){
+                userWaitConnect = false;
                 if(roomChat===null || typeof roomChat.room_oid === 'undefined') return
                 const c = confirm('Bạn có muốn kết thúc cuộc trò chuyện?')
                 if(!c) return false;
