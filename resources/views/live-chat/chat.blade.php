@@ -376,7 +376,7 @@
                 if (match) {
                     classSendFrom += ' update-border-radius'
                 }
-                let html='<div  class="d-flex justify-content-'+parent+' mb-4"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
+                let html='<div  class="d-flex justify-content-'+parent+' mb-2"> <div style="white-space: pre-line;padding: 3px 10px !important;" class="'+classSendFrom+'">'+data.message.replace(/<[^>]*>?/gm, '')+'</div></div>';
                 $(".card-body").append(html)
                 if(data.from_user_oid == '{{$userOid}}'){
                     let objDiv = document.getElementsByClassName("msg_card_body")[0];
