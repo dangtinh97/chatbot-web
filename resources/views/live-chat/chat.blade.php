@@ -468,14 +468,14 @@
         })
 
         const defaultHeightScreen = window.innerHeight * 0.1;
-
+        $(".user_info p").html(defaultHeightScreen)
         window.addEventListener('resize', () => {
             // We execute the same script as before
              let vh = window.innerHeight * 0.1;
              $(".user_info p").html(vh)
              if(isMobile){
                  console.log(vh)
-                 $(".card").css('height',`${vh}vh`)
+                 // $(".card").css('height',`${vh}vh`)
              }
 
             // document.documentElement.style.setProperty('--vh', `${vh}px`);
