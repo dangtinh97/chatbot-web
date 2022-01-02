@@ -222,7 +222,7 @@
         padding: 0!important;
     }
 
-    #page-chat div{
+    #page-chat .chat_body{
         padding: 0 !important;
     }
 
@@ -232,6 +232,14 @@
 
     .contacts_card {
         margin-bottom: 15px !important;
+    }
+
+    .msg_card_body ,.card-footer{
+        padding: 0!important;
+    }
+
+    .img_cont{
+        padding: 0.5rem!important;
     }
 
 

@@ -292,7 +292,10 @@
         let timeIntervalSendSocketTypeKeyboard = null;
         let timeIntervalClearOffTyping = null;
         let timeIntervalTypeKeyboard = null;
+        let timeEnd = 0;
+        let dataEnd = {}
         let userWaitConnect = '{{(bool)$waitConnect ?? true}}' == 1 ? true:false //xem user có đang chờ kết nối hay không
+
         document.addEventListener("visibilitychange", event => {
             userIsTab = document.visibilityState === "visible";
         })
@@ -367,17 +370,15 @@
             }
 
             socket.on("connect",function (){
-                $(".user_info p").html("Vui lòng chờ...")
-                if(socket.connected && userWaitConnect) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
 
+                userWaitConnect===true ? $(".user_info p").html("Vui lòng chờ...") : $(".user_info p").html("Chưa kết nối với ai")
+
+                if(socket.connected && userWaitConnect) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM,{})
                 socketIsConnect = true;
                 socket.on(SOCKET_JOIN_SINGLE_CHAT,function (response){
                     roomChat = response;
                     if(response.status_room === STATUS_ROOM_WAIT_CONNECT) return waitUserConnect()
                     if(response.status_room === STATUS_ROOM_IN_CHATTING) return inChatting(response)
-
-                    // userJoinChat(response)
-
                 })
                 socket.on(SOCKET_SEND_MESSAGE_SINGLE_CHAT,(response)=>onMessage(response))
                 socket.on(SOCKET_USER_LEAVE_ROOM_SINGLE_CHAT,()=>userLeaveRoom())
@@ -424,8 +425,7 @@
                 }
                 processChat(false)
             }
-            let timeEnd = 0;
-            let dataEnd = {}
+
             function onMessage(data)
             {
                 let timeNow = (new Date()).getTime();
@@ -518,9 +518,11 @@
                 return sendMessage()
             })
 
+            let timeClickBtnSendChatEnd = 0;
+
             function sendMessage(){
                 let mess = $(".type_msg").val().trim()
-                if($('.type_msg').is(':focus')) $(".type_msg").focus();
+                if((new Date()).getTime() - timeClickBtnSendChatEnd <100) $(".type_msg").focus();
                 if(mess == "" ||!socketIsConnect || roomChat===null || typeof roomChat.room_oid==="undefined") return false
                 socket.volatile.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT,{
                     room_oid:roomChat.room_oid,
@@ -528,6 +530,10 @@
                 })
                return $(".type_msg").val("")
             }
+
+            $(".type_msg")[0].addEventListener("blur",function (){
+                timeClickBtnSendChatEnd = (new Date()).getTime()
+            })
 
             $(this).on('click','#end-chat',async function (){
                 userWaitConnect = false;
@@ -547,6 +553,7 @@
             })
 
             window.addEventListener('click', function(e){
+
                 if (document.getElementById('action_menu').contains(e.target) || document.getElementById('action_menu_btn').contains(e.target)){
                     // Clicked in box
                 } else{
