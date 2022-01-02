@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\SearchMobileController::class, 'index'])->name('nguoi-la');
+
 Route::get('/dieu-khoan-su-dung', function () {
     return view('search-mobile.dieukhoan');
 })->name('dieu-khoan');
-Route::get('live-chat',[\App\Http\Controllers\LiveChatController::class,'index']);
+Route::get('/',[\App\Http\Controllers\LiveChatController::class,'index']);
+Route::get('/tra-sdt', [\App\Http\Controllers\SearchMobileController::class, 'index'])->name('nguoi-la');
+
+
 Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class, 'search'])->name('search');
 
 Route::name('api.')->group(function () {

@@ -1,3 +1,8 @@
+:root{
+    --orange-color: #f4a850;
+    --black-color: #151b21
+}
+
 .chat{
     margin-top: auto;
     margin-bottom: auto;
@@ -13,6 +18,7 @@
     white-space: nowrap;
 }
 .msg_card_body{
+    background-color: #ffffffd9;
     overflow-y: auto;
 }
 .card-header{
@@ -142,7 +148,7 @@
     margin-bottom: auto;
     margin-left: 10px;
     border-radius: 25px;
-    background-color: #82ccdd;
+    background-color: var(--orange-color);
     padding: 3px 5px!important;
     position: relative;
 }
@@ -151,7 +157,8 @@
     margin-bottom: auto;
     margin-right: 10px;
     border-radius: 25px;
-    background-color: #78e08f;
+    color: var(--orange-color);
+    background-color: var(--black-color);
     padding: 3px 5px!important;
     position: relative;
 }
@@ -226,7 +233,6 @@
     .contacts_card {
         margin-bottom: 15px !important;
     }
-
 
 
 }
