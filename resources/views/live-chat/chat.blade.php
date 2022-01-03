@@ -166,7 +166,7 @@
             }
 
             socket.on("connect", function () {
-
+                console.log(socket)
                 userWaitConnect === true ? $(".user_info p").html("Vui lòng chờ...") : $(".user_info p").html("Chưa kết nối với ai")
 
                 if (socket.connected && userWaitConnect) socket.volatile.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM, {})
@@ -302,16 +302,23 @@
             }
 
             $(this).on("click", "#btn-send-chat", () => {
+                if(timeIntervalSendSocketTypeKeyboard!==null) clearInterval(timeIntervalSendSocketTypeKeyboard)
+                socket.volatile.emit(SOCKET_CHAT_IS_TYPING, {
+                    status: "STOP_TYPING",
+                    room_oid: roomChat.room_oid
+                })
                 return sendMessage()
             })
 
             let timeClickBtnSendChatEnd = 0;
 
             function sendMessage() {
+
                 let mess = $(".type_msg").val().trim()
                 if ((new Date()).getTime() - timeClickBtnSendChatEnd < 100) $(".type_msg").focus();
-                if (mess == "" || !socketIsConnect || roomChat === null || typeof roomChat.room_oid === "undefined") return false
-                socket.volatile.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT, {
+                if (mess == "" || !socket.connected || roomChat === null || typeof roomChat.room_oid === "undefined") return false
+
+                socket.emit(SOCKET_SEND_MESSAGE_SINGLE_CHAT, {
                     room_oid: roomChat.room_oid,
                     message: mess
                 })
@@ -373,6 +380,10 @@
         })
 
         if (isMobile) $(".card").css('height', `${window.innerHeight - 1}px`)
+
+        window.addEventListener("resize",function (){
+            if (isMobile) $(".card").css('height', `${window.innerHeight - 1}px`)
+        })
 
     </script>
 @endsection
