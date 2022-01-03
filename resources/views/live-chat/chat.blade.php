@@ -3,7 +3,6 @@
     <section class="container" id="page-chat">
         <div class="container-fluid h-100 chat_body">
             <div class="row justify-content-center h-100">
-
                 <div class="col-md-8 col-xl-12 chat" id="form-chat">
                     <div class="card">
                         <div class="card-header msg_head">
@@ -45,6 +44,7 @@
                                 <div class="bar bar2"></div>
                                 <div class="bar bar3"></div>
                             </div>
+
                         </div>
                         <div class="card-footer d-none">
                             <div class="input-group">
@@ -232,6 +232,7 @@
                 if (data.from_user_oid != '{{$userOid}}') {
                     parent = 'start'
                     classSendFrom = 'msg_cotainer';
+                    newMessageShowButtonLoadEnd()
                     playAudio()
                 } else {
                     //sms my
@@ -245,8 +246,7 @@
                 let html = '<div  class="d-flex justify-content-' + parent + ' mb-2"> <div style="max-width: 75%;white-space: pre-line;padding: 3px 10px !important;" class="' + classSendFrom + '">' + data.message.replace(/<[^>]*>?/gm, '') + '</div></div>';
                 $(".card-body").append(html)
                 if (data.from_user_oid == '{{$userOid}}') {
-                    let objDiv = document.getElementsByClassName("msg_card_body")[0];
-                    objDiv.scrollTop = objDiv.scrollHeight;
+                    scrollBodyChatToEnd()
                 }
             }
 
@@ -302,6 +302,7 @@
             }
 
             $(this).on("click", "#btn-send-chat", () => {
+                timeSendSocketTypeKeyboard=0
                 if(timeIntervalSendSocketTypeKeyboard!==null) clearInterval(timeIntervalSendSocketTypeKeyboard)
                 socket.volatile.emit(SOCKET_CHAT_IS_TYPING, {
                     status: "STOP_TYPING",
@@ -377,6 +378,25 @@
                 if (connectChat) $("#connect-chat").fadeIn()
             }
 
+            function newMessageShowButtonLoadEnd(){
+                var ele = document.getElementsByClassName("msg_card_body")[0];
+
+                var sh = ele.scrollHeight;
+                var st = ele.scrollTop;
+                var ht = ele.offsetHeight;
+
+                if(ht===0 || ((st+10) > sh - ht))
+                {
+                    scrollBodyChatToEnd()
+                    return true;
+                }
+
+                if(sh > 2*ht+10){
+                    let bottom = document.getElementsByClassName('card-footer')[0].offsetHeight+10;
+                    if(document.getElementById('scrollToEnd') == null) $(".msg_card_body").append('<i id="scrollToEnd" onclick="scrollBodyChatToEnd()" style="position: absolute;bottom: '+bottom+'px; right: 20px;z-index: 999999" class="fas fa-arrow-circle-down fa-2x"></i>')
+                }
+            }
+
         })
 
         if (isMobile) $(".card").css('height', `${window.innerHeight - 1}px`)
@@ -384,6 +404,16 @@
         window.addEventListener("resize",function (){
             if (isMobile) $(".card").css('height', `${window.innerHeight - 1}px`)
         })
+
+        function scrollBodyChatToEnd()
+        {
+
+            document.getElementById('scrollToEnd') == null ? "" : document.getElementById('scrollToEnd').remove()
+            setTimeout(()=>{
+                let objDiv = document.getElementsByClassName("msg_card_body")[0];
+                objDiv.scrollTop = objDiv.scrollHeight;
+            },100)
+        }
 
     </script>
 @endsection
