@@ -5,7 +5,7 @@
     <meta name="description" content="Trò chuyện , tâm sự cùng với những người lạ!">
     <meta name="keywords" content="nguoila, nguoila.online">
     <meta property="og:title" content="Trò chuyện , tâm sự cùng với những người lạ!">
-    <meta property="og:url" content="https://nguoila.online/live-chat">
+    <meta property="og:url" content="https://nguoila.online/">
     <meta property="og:image" content="https://storage.googleapis.com/monstar-lab/logo.png">
     <link rel="icon" href="https://storage.googleapis.com/monstar-lab/handshake-icon.png">
     <meta name="viewport"
