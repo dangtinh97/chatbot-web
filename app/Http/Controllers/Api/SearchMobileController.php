@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class SearchMobileController extends Controller
 {
-    public function search(Request $request, $mobile)
+    public function search(Request $request)
     {
-        $mobile = $request->get('mobile',$mobile);
+        $mobile = $request->get('mobile');
         $arraySearch = [
             "count_views" => '/Lượt xem: (.*?) \\//',
             "vote_positive" => '/\\((\d+) tích cực/',
