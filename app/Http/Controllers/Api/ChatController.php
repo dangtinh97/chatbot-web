@@ -26,7 +26,8 @@ class ChatController extends Controller
                 'status' => SingleChat::STATUS_CLOSE
             ]
         ])->first();
-        User::query()->find(Auth::id())->update([
+        $user = User::query()->find(Auth::id());
+        if(!is_null($user)) $user->update([
             'wait_connect' => false
         ]);
         if(is_null($find)) return response()->json((new ResponseError())->toArray());
