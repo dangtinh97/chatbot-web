@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
     {
 
         if ($exception instanceof \Exception) {
-            ErrorException::dlquery()->create([
+            ErrorException::query()->create([
                 'message' => $exception->getMessage(),
                 'file' => $exception->getFile(),
                 'line' => $exception->getLine(),
