@@ -39,7 +39,6 @@ class SearchMobileController extends Controller
 
         $crawler = $client->request('GET', $url);
 
-
         $elements = $crawler->filter('.phone-detail.p-3')->each(function (Crawler $node){
             return $node->text();
         });
