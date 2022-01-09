@@ -25,7 +25,7 @@ Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class, 's
 
 Route::name('api.')->group(function () {
     Route::group([
-        'prefix' => 'api'
+        'prefix' => 'tra-sdt'
     ], function () {
         Route::post('search/{mobile}', [\App\Http\Controllers\Api\SearchMobileController::class, 'search'])->name('search.store');
         Route::post('vote',[\App\Http\Controllers\Api\SearchMobileController::class,'vote'])->name('search.mobile.vote');
