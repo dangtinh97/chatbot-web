@@ -14,6 +14,7 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     {{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0/css/v4-shims.min.css" integrity="sha512-p++g4gkFY8DBqLItjIfuKJPFvTPqcg2FzOns2BNaltwoCOrXMqRIOqgWqWEvuqsj/3aVdgoEo2Y7X6SomTfUPA==" crossorigin="anonymous" referrerpolicy="no-referrer" />--}}
     <title>NGUOI LA ONLINE</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <style>
         body, html {
             height: 100%;
@@ -72,7 +73,7 @@
         await $.ajax({
             url: url,
             headers: {
-                'X-CSRF-TOKEN': '{{@csrf_token()}}'
+                'X-CSRF-TOKEN': document.getElementsByName('csrf-token')[0].content
             },
             type: method,
             data: data,
