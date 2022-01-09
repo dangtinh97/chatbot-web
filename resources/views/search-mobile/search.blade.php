@@ -41,7 +41,7 @@
             })
 
             async function init(){
-                let requestData = await request('{{route('api.search.store','__mobile')}}'.replace('__mobile',{{$mobile}}),'POST',{
+                let requestData = await request('{{route('api.search.store')}}','POST',{
                     text:'{{implode(' ',$texts)}}',
                     mobile:'{{$mobile}}'
                 })
