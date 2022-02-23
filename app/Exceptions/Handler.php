@@ -57,8 +57,6 @@ class Handler extends ExceptionHandler
                 'content' => "handle response"
             ]);
 
-            Log::error($exception);
-
             if (!config('app.debug')) {
                 return response()->json((new ResponseError('Hệ thống đang gián đoạn.'))->toArray());
             }
