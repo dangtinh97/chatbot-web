@@ -121,6 +121,11 @@ return [
                 'readPreference' => env('READ_PREFERENCE', 'primary'),
 
             ]
+        ],
+        'mongodb_dns'=>[
+            'driver' => 'mongodb',
+            'dsn' => env('DB_DSN'),
+            'database' => env('DB_DATABASE', 'homestead'),
         ]
     ],
 
