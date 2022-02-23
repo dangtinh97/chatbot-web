@@ -18,5 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('end-chat-single',[\App\Http\Controllers\Api\ChatController::class,'endChat'])->middleware('auth')->name('api.end-chat-single');
-Route::post('set-wait-connect',[\App\Http\Controllers\Api\UserController::class,'setWaitConnect'])->middleware('auth')->name('api.set-wait-connect');
+Route::get('end-chat-single',[\App\Http\Controllers\Api\ChatController::class,'endChat'])->middleware('auth')->name('api.end-chat-single');
+Route::get('set-wait-connect',[\App\Http\Controllers\Api\UserController::class,'setWaitConnect'])->middleware('auth')->name('api.set-wait-connect');
