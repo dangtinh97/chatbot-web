@@ -201,7 +201,7 @@
             }
 
             $(this).on('click', '#connect-chat', function () {
-                request('{{route('api.set-wait-connect')}}', 'GET', {})
+                request('{{route('api.set-wait-connect')}}', 'POST', {})
                 userWaitConnect = true;
                 if (!socketIsConnect) return false;
                 socket.emit(SOCKET_SINGLE_CHAT_CREATE_ROOM, {})

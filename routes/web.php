@@ -31,3 +31,7 @@ Route::name('api.')->group(function () {
 
 Route::get('/',[\App\Http\Controllers\LiveChatController::class,'index']);
 Route::get('/{mobile}', [\App\Http\Controllers\SearchMobileController::class, 'search'])->name('search');
+
+
+Route::post('end-chat-single',[\App\Http\Controllers\Api\ChatController::class,'endChat'])->middleware('auth')->name('api.end-chat-single');
+Route::post('set-wait-connect',[\App\Http\Controllers\Api\UserController::class,'setWaitConnect'])->middleware('auth')->name('api.set-wait-connect');
