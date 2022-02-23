@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     public function setWaitConnect()
     {
+        dd(Auth::id());
         User::query()->find(Auth::id())->update([
             'wait_connect' => true
         ]);
