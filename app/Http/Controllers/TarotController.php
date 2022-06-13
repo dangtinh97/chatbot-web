@@ -18,7 +18,25 @@ class TarotController extends Controller
         $service = $this->tarotService->showWithUser($fbUid);
         $data = $service['result'];
         $id = $service['id'];
-        $url = "https://nguoila.online/boi-bai-tarot/$id";
+        $url = config('app.url')."/boi-bai-tarot/$id";
+        return view('tarot-daily',compact('data','id','url'));
+    }
+
+    public function show($id)
+    {
+        $service = $this->tarotService->show($id);
+        $data = $service['result'];
+        $id = $service['id'];
+        $url = config('app.url')."/boi-bai-tarot/$id";
+        return view('tarot-daily',compact('data','id','url'));
+    }
+
+    public function index()
+    {
+        $service = $this->tarotService->show(0);
+        $data = $service['result'];
+        $id = $service['id'];
+        $url = config('app.url')."/boi-bai-tarot/$id";
         return view('tarot-daily',compact('data','id','url'));
     }
 }

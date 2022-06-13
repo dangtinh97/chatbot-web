@@ -52,4 +52,29 @@ class TarotService
             'id' => $id
         ];
     }
+
+
+    public function show(int $id)
+    {
+        $idResult = 1;
+        $result = [];
+        $tarot = $this->userTarotRepository->findFirst([
+            'id' => $id
+        ]);
+        if(is_null($tarot)){
+            $result = ThienTueCrawlHelper::boiBaiTarot();
+            $create = $this->userTarotRepository->create([
+                'user_id' => 1,
+                'data' => json_encode($result)
+            ]);
+            $idResult = $create->id;
+        }else{
+            $result = json_decode($tarot->data,true);
+            $idResult = $tarot->id;
+        }
+        return [
+            'result' => $result,
+            'id' => $idResult
+        ];
+    }
 }

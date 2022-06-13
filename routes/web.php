@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('user-boi-bai-tarot/{fb_uid}',[\App\Http\Controllers\TarotController::class,'showWithUser']);
+Route::get('boi-bai-tarot/{id}',[\App\Http\Controllers\TarotController::class,'show']);
+Route::get('boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index']);
