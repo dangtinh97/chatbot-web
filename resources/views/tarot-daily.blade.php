@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <meta property="og:url"           content="{{$url}}" />
     <meta property="og:type"          content="website" />
-    <meta property="og:description"   content="Your description" />
+    <meta property="og:description"   content="{{$data[0]['detail']}}" />
     <meta property="og:image"         content="{{$data[0]['image']}}" />
 </head>
 <body>
