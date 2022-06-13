@@ -40,7 +40,7 @@
     <div id="fb-root"></div>
     <!-- Your share button code -->
     <div class="text-center mb-4">
-        <div class="fb-share-button" data-href="{{$url}}" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+        <div class="fb-share-button" data-href="https://tool.nguoila.online/boi-bai-tarot" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
     </div>
     </div>
 @include('incluces/analytics')
