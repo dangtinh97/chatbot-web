@@ -49,14 +49,6 @@ class Handler extends ExceptionHandler
     {
 
         if ($exception instanceof \Exception) {
-            ErrorException::query()->create([
-                'message' => $exception->getMessage(),
-                'file' => $exception->getFile(),
-                'line' => $exception->getLine(),
-                'code' => $exception->getCode(),
-                'content' => "handle response"
-            ]);
-
             if (!config('app.debug')) {
                 return response()->json((new ResponseError('Hệ thống đang gián đoạn.'))->toArray());
             }
