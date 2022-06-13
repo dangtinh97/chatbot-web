@@ -7,16 +7,16 @@
     <meta property="og:title" content="Bói bài Tarot hàng ngày: Xem online miễn phí, chính xác nhất">
     <title>Bói bài Tarot hàng ngày: Xem online miễn phí, chính xác nhất</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <meta property="og:url"           content="{{$url}}" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:description"   content="{{$data[0]['detail']}}" />
-    <meta property="og:image"         content="{{$data[0]['image']}}" />
+    <meta property="og:url" content="{{$url}}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="{{$data[0]['detail']}}"/>
+    <meta property="og:image" content="{{$data[0]['image']}}"/>
 </head>
 <body>
 <div class="container mt-4">
     <h1 class="text-success">Bói bài tarot - ngày hôm nay của bạn:</h1>
     <div class="row row-cols-1 row-cols-md-2 g-4">
-            @foreach($data as $item)
+        @foreach($data as $item)
             <div class="col">
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
@@ -29,20 +29,26 @@
                                 <p class="card-text">{{$item['detail']}}</p>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
-            @endforeach
+        @endforeach
     </div>
-
     <div id="fb-root"></div>
     <!-- Your share button code -->
     <div class="text-center mb-4">
-        <div class="fb-share-button" data-href="https://tool.nguoila.online/boi-bai-tarot" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+
+        <div class="fb-share-button" data-href="https://tool.nguoila.online/boi-bai-tarot" data-layout="button" data-size="large">
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Chia
+                sẻ</a></div>
+
+
+        <div class="mt-2">
+            <a class="btn btn-danger btn-sm" href="https://tool.nguoila.online/boi-bai-tarot">🔄 Xem lại</a>
+        </div>
+        <b>Chú ý: Thông tin chỉ mang tính chất giải trí, cảm ơn bạn đã ghé thăm!</b>
     </div>
-    </div>
+</div>
 @include('incluces/analytics')
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v14.0&appId=450613910111410&autoLogAppEvents=1" nonce="Li6RHGvl"></script>
 </body>
