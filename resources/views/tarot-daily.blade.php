@@ -11,6 +11,8 @@
     <meta property="og:type" content="website"/>
     <meta property="og:description" content="{{$data[0]['detail']}}"/>
     <meta property="og:image" content="{{$data[0]['image']}}"/>
+    <meta name="keywords" content="tarot, nguoila, boi, boi bai, chatbot">
+    <link rel="icon" type="image/x-icon" href="{{asset('favicon.png')}}">
 </head>
 <body>
 <div class="container mt-4">
