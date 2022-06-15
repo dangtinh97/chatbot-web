@@ -73,7 +73,7 @@
     <p>Đây là phiên bản đang phát triển <br> Mọi chi tiết liên hệ: <a href="https://m.me/hauichatbot">Fanpage Haui Chatbot</a></p>
 </footer>
 
-
+@include('incluces/analytics')
 </body>
 <script type="text/javascript" src="{{asset('caro/js/ai.js')}}"></script>
 <script type="text/javascript" src="{{asset('caro/js/board.js')}}"></script>
