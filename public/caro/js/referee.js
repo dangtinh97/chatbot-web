@@ -79,7 +79,7 @@ var referee = {
 		}
 	},
 
-	alertBoard(text)
+	alertBoard:function (text,time=0)
 	{
 		let element  = document.getElementById('alert-board');
 		element.innerText = text;
@@ -87,6 +87,13 @@ var referee = {
 			element.style.display = "none"
 		}else{
 			element.style.display = "block"
+		}
+
+
+		if(time>0){
+			setTimeout(function (){
+				element.style.display = "none"
+			},parseInt(time)*1000)
 		}
 	}
 };

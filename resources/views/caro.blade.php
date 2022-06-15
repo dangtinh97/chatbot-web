@@ -50,10 +50,10 @@
 
 
     <h1 id="logo">CARO ONLINE</h1>
-    <center><span style="font-size: 12px; font-weight:bold;">Chơi cờ Caro trực tuyến cùng bạn bè!</span></center>
+    <center><span style="font-size: 12px; font-weight:bold;">Chơi cờ Caro trực tuyến cùng Doraemon!</span></center>
 
 
-    <div id = "chat" class="content-area">
+    <div id = "chat" class="content-area" style="display: none">
         <span class="content-area-title"><i class="fa fa-comments-o" aria-hidden="true"></i> Chat</span>
         <div id="chat-content" class="info"></div>
         <input id="chat-message" class="tbox1" type="text" placeholder="Enter để gửi">
@@ -62,13 +62,15 @@
 
     <div id = "notify" class="content-area">
         <span class="content-area-title"><i class="fa fa-info" aria-hidden="true"></i> Thông tin từ hệ thống</span>
-        <div id="notify-content" class="info"></div>
+        <div id="notify-content" class="info">
+            - Chúng tớ đang phát triển chơi cùng người lạ , hãy chờ nhé!
+        </div>
     </div>
 </div>
 
 <footer class="content-area">
-    <p>Online Caro by <a href="https://www.vannotes.com/about-me/">Viet Anh</a></p>
-    <p>Đây là phiên bản đang phát triển <br> Mọi chi tiết liên hệ: <a href="mailto:vietanh@vietanhdev.com">vietanh@vietanhdev.com</a></p>
+    <p>Online Caro by <a href="https://m.me/hauichatbot">Haui Chatbot</a></p>
+    <p>Đây là phiên bản đang phát triển <br> Mọi chi tiết liên hệ: <a href="https://m.me/hauichatbot">Fanpage Haui Chatbot</a></p>
 </footer>
 
 

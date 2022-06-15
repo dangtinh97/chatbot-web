@@ -1,13 +1,14 @@
 var ctrl = {
 	newGame : function() {
+		referee.alertBoard("")
 		currGame = new game(16, 16);
 		board.writeBoard();
 	},
 	undo : function() {
-		alert('Chơi với máy đã gà thế này rồi nên không có chơi lại nha! :D :D ');
+		referee.alertBoard('Chơi với máy đã gà thế này rồi nên không có chơi lại nha! :D :D ',2 );
 	},
 	resign : function() {
-		alert('Bạn đã chịu thua. :D :D');
+		referee.alertBoard('Bạn đã chịu thua. :D :D');
 		currGame.isGamming = false;
 	},
 	standUp : function() {
