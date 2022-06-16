@@ -29,7 +29,7 @@ class GameFlappyBirdController extends Controller
             $userId = $user ? $user->id : 1;
         }
 
-        $scoreData = $this->gameScoreService->score("FLAPPY_BIRD",1);
+        $scoreData = $this->gameScoreService->score("FLAPPY_BIRD",$userId);
         $bestScore = $scoreData['max_score'];
         $yourScore = $scoreData['score'];
         return view('flappy-bird',compact('bestScore','yourScore','userId'));
