@@ -7,12 +7,18 @@ body {
     user-select: none;
     overflow-x: hidden;
 }
-header {
+header,footer {
     margin: 0 auto;
     max-width: 431px;
 }
-h1 {
-    background: url("https://i.ibb.co/Q9yv5Jk/flappy-bird-set.png") 0% 340px;
+
+footer{
+    background: #ffc483;
+    height: calc(100vh - (768px + 32px));
+}
+
+footer > h1 {
+    background: url("/flappy-bird/images/background-bottom.jpeg") 0% 340px;
     padding: 1.2rem 0;
     margin: 0;
 }

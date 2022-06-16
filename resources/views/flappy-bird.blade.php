@@ -11,7 +11,6 @@
 <body>
 <input type="number" value="{{$userId ?? 1}}" id="user_id" style="display: none">
 <header>
-    <h1>Flappy Bird</h1>
     <div class="score-container">
         <div id="bestScore">{{$yourScore ?? 0}}</div>
         <div id="currentScore"></div>
@@ -22,6 +21,10 @@
     <p>tap to play</p>
     <p>Best score: <b id="server-best-score">{{$bestScore ?? 10}}</b></p>
 </div>
+<footer>
+    <h1>Flappy Bird</h1>
+</footer>
+
 <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
