@@ -12,8 +12,9 @@ var ctrl = {
 		currGame.isGamming = false;
 	},
 	standUp : function() {
+		var bestMove = {}
 		if (currGame.Turn == X) {
-			var bestMove = {row: 0, col:0};
+			bestMove = {row: 0, col:0};
 			AIthink(X, bestMove);
 			currGame.sq[bestMove.row][bestMove.col] = X;
 			board.sqUpdate(bestMove.row, bestMove.col);
@@ -21,7 +22,7 @@ var ctrl = {
 			currGame.Turn = O;
 			currGame.noOfPiece++;
 		} else {
-			var bestMove = {row:0, col:0};
+			bestMove = {row:0, col:0};
 			AIthink(O, bestMove);
 			currGame.sq[bestMove.row][bestMove.col] = O;
 			board.sqUpdate(bestMove.row, bestMove.col);

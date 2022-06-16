@@ -1,6 +1,6 @@
 
 const X = 1, O = 2, Empty = 0;
-
+let playWithComputer = false;
 
 var currGame = new game(16, 16);
 board.writeBoard();
@@ -22,13 +22,13 @@ function game(noOfRow, noOfCol) {
 	// this.sq[7][8] = O;
 	// this.sq[8][8] = X;
 	// this.sq[8][7] = O;
-	this.xMove = function(i,j){
+	this.AIMove = function(i,j){
 		currGame.sq[i][j] = X;
 		board.sqUpdate(i, j);
 		currGame.noOfPiece++;
 		currGame.Turn = O;
 		referee.checkWin()
-		if (currGame.isGamming == false){
+		if (!currGame.isGamming){
 			return;
 		}
 		var bestMove = {row:0, col:0};
@@ -39,6 +39,16 @@ function game(noOfRow, noOfCol) {
 		currGame.noOfPiece++;
 		referee.checkWin()
 	};
+
+	this.userMove=function (i,j,numberUser)
+	{
+		currGame.sq[i][j] = numberUser;
+		board.sqUpdate(i, j);
+		currGame.noOfPiece++;
+		currGame.Turn = numberUser===X ? O : X;
+		referee.checkWin()
+		if (!currGame.isGamming) return;
+	}
 }
 
 

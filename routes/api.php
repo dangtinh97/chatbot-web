@@ -15,3 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::group([
+    'prefix' => '/game'
+],function (){
+    Route::post('score',[\App\Http\Controllers\GameFlappyBirdController::class,'saveScore'])->name('api.game.save_score');
+});
+

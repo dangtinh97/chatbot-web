@@ -26,10 +26,8 @@ var board = {
 
 
 		if (currGame.sq[i][j] == O){
-			console.log('0');
 			document.getElementById('s'+String('00' + i).slice(-2)+String('00' + j).slice(-2)+'').innerHTML = OHtml;
 		} else if (currGame.sq[i][j] == X){
-			console.log('X');
 			document.getElementById('s'+String('00' + i).slice(-2)+String('00' + j).slice(-2)+'').innerHTML = XHtml;
 		} else {
 			document.getElementById('s'+String('00' + i).slice(-2)+String('00' + j).slice(-2)+'').innerHTML = '';
@@ -44,9 +42,12 @@ var board = {
 		}
 	},
 	/* when click a currGame.square */
+	//const X = 1, O = 2, Empty = 0;
 	sqClick: function(row, col) {
-		if (currGame.isGamming && currGame.sq[row][col] == 0 && currGame.Turn == X) {
-			currGame.xMove(row, col);
-		}
+		if(!currGame.isGamming || currGame.sq[row][col] !== 0) return
+
+		if (playWithComputer && currGame.Turn === X) return currGame.AIMove(row, col); //chơi với máy
+
+		currGame.userMove(row,col,currGame.Turn)
 	},
 };
