@@ -26,7 +26,7 @@ class GameFlappyBirdController extends Controller
             $user = $this->userRepository->findFirst([
                 'fb_uid' => $fbUid
             ]);
-            $userId = $user ? $user->id ? 1;
+            $userId = $user ? $user->id : 1;
         }
 
         $scoreData = $this->gameScoreService->score("FLAPPY_BIRD",1);
