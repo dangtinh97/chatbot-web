@@ -10,9 +10,11 @@ use Illuminate\Http\Request;
 class GameFlappyBirdController extends Controller
 {
     public $gameScoreService;
-    public function __construct(GameScoreService $gameScoreService)
+    public $userRepository;
+    public function __construct(GameScoreService $gameScoreService,UserRepository $userRepository)
     {
         $this->gameScoreService = $gameScoreService;
+        $this->userRepository = $userRepository;
     }
 
     public function index(Request $request)
@@ -21,7 +23,7 @@ class GameFlappyBirdController extends Controller
 
         $fbUid = $request->get('fb_uid','');
         if(!empty($fbUid)){
-            $user = (new UserRepository())->findFirst([
+            $user = $this->userRepository->findFirst([
                 'fb_uid' => $fbUid
             ]);
             $userId = $user ?? $user->id;
