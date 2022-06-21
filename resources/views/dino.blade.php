@@ -34,7 +34,7 @@
         <h1 id="h1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Press space/up to play</h1>
     </div>
 </div>
-
+@include('incluces/analytics')
 </body>
 <script src="register-sw.js"></script>
 <script>
