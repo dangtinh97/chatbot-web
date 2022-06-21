@@ -7,6 +7,11 @@ board.writeBoard();
 
 
 function game(noOfRow, noOfCol) {
+	if(playWithComputer){
+		setButtonLight('play_with_computer',true)
+	}else{
+		setButtonLight('play_with_user',true)
+	}
 
 	this.noOfRow = noOfRow;
 	this.noOfCol = noOfCol;

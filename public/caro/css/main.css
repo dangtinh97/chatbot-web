@@ -90,3 +90,8 @@ body {
 	padding: 20px;
 	border-radius: 14px;
 }
+
+.light-button{
+	background: #39ff14;
+	box-shadow: 0 0 50px #39ff14;
+}

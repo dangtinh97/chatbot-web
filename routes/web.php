@@ -18,7 +18,12 @@ Route::get('boi-bai-tarot/{id}',[\App\Http\Controllers\TarotController::class,'s
 Route::get('boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index']);
 Route::get('/caro-online/',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
 Route::get('/caro-online/{fb_uid}',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
-Route::get('/game/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index']);
+Route::group([
+    'prefix' => '/game'
+],function (){
+    Route::get('/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index']);
+    Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino']);
+});
 
 
 Route::get('/{any}',[\App\Http\Controllers\TarotController::class,'index']);

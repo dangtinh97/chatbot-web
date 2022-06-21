@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Game Cờ Caro</title>
     <link rel="stylesheet" type="text/css" href="{{asset('caro/font-awesome/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('caro/css/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('caro/css/playing.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('caro/css/main.css')."?v=".time()}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('caro/css/playing.css')."?v=".time()}}">
 </head>
 <body>
 <input id="img_x" style="display: none" value="{{asset('caro/img/x.png')}}">
@@ -36,10 +36,16 @@
             <button class="btn1 btn-med" id="resign" onclick="ctrl.resign()">
                 <i class="fa fa-flag-o fa-2x" aria-hidden="true"></i> Chịu thua</button>
 
-            <button class="btn1 btn-med" id="undo" onclick="ctrl.undo()">
+            <button class="btn1 btn-med" id="play_with_user" onclick="ctrl.playWithUser()">
+                <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i> Chơi online</button>
+
+            <button class="btn1 btn-med" id="play_with_computer" onclick="ctrl.playWithComputer()">
+                <i class="fa fa-desktop fa-2x" aria-hidden="true"></i> Chơi với máy</button>
+
+            <button class="btn1 btn-med" style="display: none" id="undo" onclick="ctrl.undo()">
                 <i class="fa fa-undo fa-2x" aria-hidden="true"></i> Xin đi lại</button>
 
-            <button class="btn1 btn-med" id="quit" onclick="ctrl.standUp()">
+            <button class="btn1 btn-med" style="display: none" id="quit" onclick="ctrl.standUp()">
                 <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i> Thoát</button>
 
         </div>
@@ -75,6 +81,7 @@
 
 @include('incluces/analytics')
 </body>
+<script type="text/javascript" src="{{asset('caro/js/index.js')}}"></script>
 <script type="text/javascript" src="{{asset('caro/js/ai.js')}}"></script>
 <script type="text/javascript" src="{{asset('caro/js/board.js')}}"></script>
 <script type="text/javascript" src="{{asset('caro/js/caro.js')}}"></script>
