@@ -69,3 +69,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - php artisan make:model Tarot
 - php artisan make:migration create_user_tarots_table
 - php artisan make:migration create_games_score_table
+- php artisan make:migration create_admins_table

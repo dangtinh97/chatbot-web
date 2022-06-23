@@ -1,1 +1,2 @@
-<?php
+@extends('admin.layouts.app')
+

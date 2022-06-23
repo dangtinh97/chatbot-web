@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('photoshop-online',function (){
+    return view('photoshop');
+});
+
+
+Route::get('sua-anh-online',function (){
+    return view('photoshop');
+});
 
 Route::get('user-boi-bai-tarot/{fb_uid}',[\App\Http\Controllers\TarotController::class,'showWithUser']);
 Route::get('boi-bai-tarot/{id}',[\App\Http\Controllers\TarotController::class,'show']);
@@ -23,6 +31,26 @@ Route::group([
 ],function (){
     Route::get('/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index']);
     Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino']);
+});
+
+Route::group([
+    'prefix' => 'admin'
+],function(){
+   Route::get('/login',[\App\Http\Controllers\Admin\AuthController::class,'login'])->name('admin.login');
+   Route::post('/login',[\App\Http\Controllers\Admin\AuthController::class,'attempt'])->name('admin.attempt');
+});
+
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'auth'
+],function(){
+    Route::get('/',[\App\Http\Controllers\AdminController::class,'index'])->name('admin.dashboard');
+    Route::group([
+        'prefix' => '/blocks'
+    ],function (){
+        Route::get('/menu',[\App\Http\Controllers\Admin\BlockController::class,'menu'])->name('admin.block.menu');
+    });
+
 });
 
 

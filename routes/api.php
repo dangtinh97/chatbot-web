@@ -21,3 +21,9 @@ Route::group([
     Route::post('score',[\App\Http\Controllers\GameFlappyBirdController::class,'saveScore'])->name('api.game.save_score');
 });
 
+Route::group([
+    'prefix' => 'admin'
+],function (){
+    Route::post('/login',[\App\Http\Controllers\Api\AuthController::class,'attempt'])->name('api.admin.login');
+});
+
