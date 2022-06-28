@@ -31,6 +31,7 @@ Route::group([
 ],function (){
     Route::get('/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index']);
     Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino']);
+    Route::get('/2048',[\App\Http\Controllers\GameController::class,'game2048']);
 });
 
 Route::group([
