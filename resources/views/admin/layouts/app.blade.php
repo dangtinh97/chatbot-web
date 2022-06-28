@@ -97,6 +97,16 @@
 
 <!-- Custom scripts for all pages-->
 <script src="{{asset('admin-assets/js/sb-admin-2.min.js')}}"></script>
+
+<script src="{{asset('admin-assets/js/util.js')}}"></script>
+
+<script>
+    function convertToSlug(Text) {
+        return Text.toLowerCase()
+            .replace(/ /g, '-')
+            .replace(/[^\w-]+/g, '');
+    }
+</script>
 @yield('script')
 </body>
 

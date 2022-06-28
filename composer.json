@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "sunra/php-simple-html-dom-parser": "^1.5",
+        "superbalist/laravel-google-cloud-storage": "^2.2",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

@@ -26,7 +26,6 @@ class AuthController extends Controller
 //            'email' => 'dangtinha2@gmail.com',
 //            'mobile' => '0372052643',
 //        ]);
-
         $login = $this->authService->attempt([
             'username' => 'dangtinh',
             'password' => '123456',

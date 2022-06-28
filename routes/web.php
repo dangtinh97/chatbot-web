@@ -21,17 +21,22 @@ Route::get('sua-anh-online',function (){
     return view('photoshop');
 });
 
-Route::get('user-boi-bai-tarot/{fb_uid}',[\App\Http\Controllers\TarotController::class,'showWithUser']);
-Route::get('boi-bai-tarot/{id}',[\App\Http\Controllers\TarotController::class,'show']);
-Route::get('boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index']);
-Route::get('/caro-online/',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
-Route::get('/caro-online/{fb_uid}',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
+Route::get('/boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index'])->name('other.tarot');
+
+
+
+//Route::get('user-boi-bai-tarot/{fb_uid}',[\App\Http\Controllers\TarotController::class,'showWithUser']);
+//Route::get('boi-bai-tarot/{id}',[\App\Http\Controllers\TarotController::class,'show']);
+//Route::get('boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index']);
+//Route::get('/caro-online/',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
+//Route::get('/caro-online/{fb_uid}',[\App\Http\Controllers\GameCaroController::class,'playComputer']);
 Route::group([
     'prefix' => '/game'
 ],function (){
-    Route::get('/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index']);
-    Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino']);
-    Route::get('/2048',[\App\Http\Controllers\GameController::class,'game2048']);
+    Route::get('/caro-online',[\App\Http\Controllers\GameCaroController::class,'playComputer'])->name('game.caro-online');
+    Route::get('/flappy-bird',[\App\Http\Controllers\GameFlappyBirdController::class,'index'])->name('game.flappy-bird');
+    Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino'])->name('game.dino');
+    Route::get('/2048',[\App\Http\Controllers\GameController::class,'game2048'])->name('game.2048');
 });
 
 Route::group([
@@ -39,6 +44,7 @@ Route::group([
 ],function(){
    Route::get('/login',[\App\Http\Controllers\Admin\AuthController::class,'login'])->name('admin.login');
    Route::post('/login',[\App\Http\Controllers\Admin\AuthController::class,'attempt'])->name('admin.attempt');
+
 });
 
 Route::group([
@@ -50,10 +56,15 @@ Route::group([
         'prefix' => '/blocks'
     ],function (){
         Route::get('/menu',[\App\Http\Controllers\Admin\BlockController::class,'menu'])->name('admin.block.menu');
+        Route::get('/defined',[\App\Http\Controllers\Admin\BlockController::class,'defined'])->name('admin.block.defined');
     });
+    Route::resource('/attachments',\App\Http\Controllers\AttachmentController::class);
 
 });
 
+Route::get('crawl/girl',[\App\Http\Controllers\CrawlController::class,'girl']);
 
-Route::get('/{any}',[\App\Http\Controllers\TarotController::class,'index']);
-Route::get('',[\App\Http\Controllers\TarotController::class,'index']);
+
+
+Route::get('/{any}',[\App\Http\Controllers\DashboardController::class,'index']);
+Route::get('',[\App\Http\Controllers\DashboardController::class,'index']);

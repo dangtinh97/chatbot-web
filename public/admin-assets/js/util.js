@@ -6,6 +6,9 @@ async function request(url,method,data)
             type:method,
             typeData:"JSON",
             data:data,
+            headers:{
+                Authorization:"Bearer "+window.localStorage.getItem('token')
+            },
             success:function (res)
             {
                 return resolve(res)

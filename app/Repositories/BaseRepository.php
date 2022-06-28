@@ -69,4 +69,15 @@ class BaseRepository
         ]*/
         return $query->first();
     }
+
+    /**
+     * @param array $cond
+     * @param array $data
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public function firstOrCreate(array $cond, array $data)
+    {
+        return $this->model::query()->firstOrCreate($cond, $data);
+    }
 }

@@ -27,3 +27,15 @@ Route::group([
     Route::post('/login',[\App\Http\Controllers\Api\AuthController::class,'attempt'])->name('api.admin.login');
 });
 
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'auth.api'
+],function (){
+    Route::post('/attachments',[\App\Http\Controllers\AttachmentController::class,'store'])->name('api.attachments.post');
+    Route::group([
+        'prefix' => 'block'
+    ],function (){
+        Route::post('defined',[\App\Http\Controllers\Admin\BlockController::class,'definedStore'])->name('api.defined.store');
+    });
+
+});
