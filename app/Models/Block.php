@@ -11,5 +11,5 @@ class Block extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'blocks';
     protected $fillable = ['name','data','deleted_at'];
-    const BLOCK_DEFINED = "DEFINED";
+    const BLOCK_DEFAULT = "DEFAULT";
 }

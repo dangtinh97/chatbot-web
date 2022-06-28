@@ -54,9 +54,9 @@ class BlockService
             ]
         ];
         $this->blockRepository->firstOrCreate([
-            'name' => Block::BLOCK_DEFINED
+            'name' => Block::BLOCK_DEFAULT
         ],[
-            'name' => Block::BLOCK_DEFINED,
+            'name' => Block::BLOCK_DEFAULT,
             'data' => json_encode($template)
         ]);
 
