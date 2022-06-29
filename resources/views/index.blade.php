@@ -11,10 +11,10 @@
 <div class="container">
     @foreach($list as $data)
         <section id="{{$data['id']}}">
-            <h1 class="p-3 mb-2 bg-info text-dark text-white">{{$data['name']}}</h1>
+            <h1 class="p-3 mb-2 bg-info text-dark text-white mt-4">{{$data['name']}}</h1>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach($data['data'] as $info)
-                    <a href="{{$info['url']}}">
+                    <a target="_blank" href="{{$info['url']}}">
                         <div class="col">
                             <div class="card h-100">
                                 <img src="{{$info['url_image']}}" class="card-img-top" alt="">

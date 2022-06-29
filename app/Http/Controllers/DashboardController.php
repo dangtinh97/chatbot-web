@@ -13,14 +13,30 @@ class DashboardController extends Controller
                 'id' => 'game',
                 'name' => 'Trò chơi',
                 'data' => [
-                    $this->renderDashboard("Cờ caro",route('game.caro-online')),
-                    $this->renderDashboard("Flappy bird",route('game.flappy-bird')),
-                    $this->renderDashboard("Dino",route('game.dino')),
-                    $this->renderDashboard("2048",route('game.2048')),
+                    $this->renderDashboard("Cờ caro", route('game.caro-online')),
+                    $this->renderDashboard("Flappy bird", route('game.flappy-bird')),
+                    $this->renderDashboard("Dino", route('game.dino')),
+                    $this->renderDashboard("2048", route('game.2048')),
                 ]
-            ]
+            ],
+            [
+                'id' => 'application',
+                'name' => 'Giải trí',
+                'data' => [
+                    $this->renderDashboard("Bói bài tarot", route('other.tarot')),
+                ]
+            ],
+            [
+                'id' => 'application',
+                'name' => 'Ứng dụng',
+                'data' => [
+                    $this->renderDashboard("Photoshop online", route('photoshop.online'),"https://storage.googleapis.com/datinee-dev/chatbot/photoshop-online.png"),
+                ]
+            ],
+
         ];
-        return view('index',compact('list'));
+
+        return view('index', compact('list'));
     }
 
     /**
@@ -31,8 +47,12 @@ class DashboardController extends Controller
      *
      * @return string[]
      */
-    private function renderDashboard(string $name, string $url, string $urlImage = 'https://storage.googleapis.com/datinee-dev/chatbot-default.jpeg', string $icon = '')
-    {
+    private function renderDashboard(
+        string $name,
+        string $url,
+        string $urlImage = 'https://storage.googleapis.com/datinee-dev/chatbot-default.jpeg',
+        string $icon = ''
+    ) {
         return [
             'url_image' => $urlImage,
             'name' => $name,
