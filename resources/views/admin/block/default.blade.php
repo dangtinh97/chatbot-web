@@ -61,13 +61,15 @@
                     "title":$("#name_button").val().trim(),
                     "payload": $("#url").val().trim()
                 }
-                request('{{route('api.de`fault.store')}}',"POST",{
+                request('{{route('api.deesault.store')}}',"POST",{
                     image_url:$("#url_image").val().trim(),
                     title:$("#title").val().trim(),
                     subtitle:$("#subtitle").val().trim(),
                     button:JSON.stringify(button),
                     url:$("#url").val().trim(),
                     type:type
+                }).then(function (res){
+                    alert(res.content)
                 })
             })
         })
