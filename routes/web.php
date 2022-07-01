@@ -49,7 +49,7 @@ Route::group([
         'prefix' => '/blocks'
     ],function (){
         Route::get('/menu',[\App\Http\Controllers\Admin\BlockController::class,'menu'])->name('admin.block.menu');
-        Route::get('/defined',[\App\Http\Controllers\Admin\BlockController::class,'defined'])->name('admin.block.defined');
+        Route::get('/default',[\App\Http\Controllers\Admin\BlockController::class,'defined'])->name('admin.block.defined');
     });
     Route::resource('/attachments',\App\Http\Controllers\AttachmentController::class);
 
