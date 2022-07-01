@@ -48,7 +48,7 @@
 </div>
 
 <div id="music-container"></div>
-
+@include('incluces.analytics')
 <script src="{{asset('slide-image/js/index-obf.js')}}"></script>
 
 <script
