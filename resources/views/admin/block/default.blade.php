@@ -54,14 +54,14 @@
                 let type = $("#type").find(":selected").data('value')
                 let button  = type==="web_url" ? {
                     "type":"web_url",
-                    "url": $("#url").val().trim()+"?fb_uid=_fb_uid",
+                    "url": $("#url").val().trim(),
                     "title":$("#name_button").val().trim()
                 }:{
                     "type":"postback",
                     "title":$("#name_button").val().trim(),
                     "payload": $("#url").val().trim()
                 }
-                request('{{route('api.defined.store')}}',"POST",{
+                request('{{route('api.de`fault.store')}}',"POST",{
                     image_url:$("#url_image").val().trim(),
                     title:$("#title").val().trim(),
                     subtitle:$("#subtitle").val().trim(),

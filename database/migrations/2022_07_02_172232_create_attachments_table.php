@@ -18,7 +18,8 @@ class CreateAttachmentsTable extends Migration
             $table->string('path');
             $table->string('mime_type');
             $table->string('disk');
-            $table->timestamp('deleted_at')->default(null);
+            $table->string('data_other')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

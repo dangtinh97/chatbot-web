@@ -25,12 +25,12 @@ class BlockController extends Controller
 
     }
 
-    public function defined()
+    public function default()
     {
-        return view("admin.block.defined");
+        return view("admin.block.default");
     }
 
-    public function definedStore(BlockDefinedStoreRequest $request)
+    public function defaultStore(BlockDefinedStoreRequest $request)
     {
        $result =  $this->blockService->defaultBlock($request->all());
        return response()->json($result->toArray());

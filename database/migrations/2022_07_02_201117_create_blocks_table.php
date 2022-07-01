@@ -17,7 +17,7 @@ class CreateBlocksTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('data');
-            $table->timestamp('deleted_at')->default(null);
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

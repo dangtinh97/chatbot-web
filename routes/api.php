@@ -35,7 +35,7 @@ Route::group([
     Route::group([
         'prefix' => 'block'
     ],function (){
-        Route::post('defined',[\App\Http\Controllers\Admin\BlockController::class,'definedStore'])->name('api.defined.store');
+        Route::post('default',[\App\Http\Controllers\Admin\BlockController::class,'defaultStore'])->name('api.default.store');
     });
 });
 

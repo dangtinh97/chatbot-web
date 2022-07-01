@@ -38,7 +38,6 @@ class BlockService
                                 'url'  =>Arr::get($params,'url',''),
                                 'messenger_extensions' => false,
                                 'webview_height_ratio' => "tall",
-                                'fallback_url' => ''
                             ]:[],
                             'buttons' => [
                                 json_decode($params['button'],true),
@@ -53,11 +52,11 @@ class BlockService
                 ]
             ]
         ];
-        $this->blockRepository->firstOrCreate([
-            'name' => Block::BLOCK_DEFAULT
-        ],[
+
+        $this->blockRepository->updateOrCreate([
             'name' => Block::BLOCK_DEFAULT,
-            'data' => json_encode($template)
+        ],[
+            'data' => json_encode($template),
         ]);
 
         return new ResponseSuccess();

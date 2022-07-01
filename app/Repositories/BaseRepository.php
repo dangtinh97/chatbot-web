@@ -101,4 +101,15 @@ class BaseRepository
     {
         return $this->model::query()->whereIn($column,$data)->get();
     }
+
+    /**
+     * @param array $cond
+     * @param array $data
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public function updateOrCreate(array $cond,array $data)
+    {
+        return $this->model::query()->updateOrCreate($cond,$data);
+    }
 }
