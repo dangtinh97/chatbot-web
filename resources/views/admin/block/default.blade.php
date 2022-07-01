@@ -61,7 +61,7 @@
                     "title":$("#name_button").val().trim(),
                     "payload": $("#url").val().trim()
                 }
-                request('{{route('api.deesault.store')}}',"POST",{
+                request('{{route('api.default.store')}}',"POST",{
                     image_url:$("#url_image").val().trim(),
                     title:$("#title").val().trim(),
                     subtitle:$("#subtitle").val().trim(),
