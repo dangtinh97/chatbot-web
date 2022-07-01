@@ -56,7 +56,13 @@ Route::group([
 });
 
 Route::get('crawl/girl',[\App\Http\Controllers\CrawlController::class,'girl']);
+Route::get("/anh-cua-tui",function (){
+   return view('slider-image');
+});
 
+Route::get("/tinh-yeu-cua-anh",function (){
+    return view('my-love');
+});
 
 
 Route::get('/{any}',[\App\Http\Controllers\DashboardController::class,'index']);
