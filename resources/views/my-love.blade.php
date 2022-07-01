@@ -42,7 +42,7 @@
         <img src="https://storage.googleapis.com/datinee-dev/chatbot/tinh-yeu-cua-anh/10.jpeg" alt="">
 
         <!-- Text at center of ground -->
-        <p>Tình yêu của anh ♥️</p>
+        <p>♥️ In Love {{$dayLove}} Days♥️</p>
     </div>
     <div id="ground"></div>
 </div>
