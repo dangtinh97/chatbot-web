@@ -16,4 +16,12 @@ class UploadGoogleHelper
             'url' => "https://storage.googleapis.com/".config('filesystems.disks.gcs.bucket')."/$name"
         ];
     }
+
+    /**
+     * @return string
+     */
+    public static function prefixUrlStorage()
+    {
+        return "https://storage.googleapis.com/".config('filesystems.disks.gcs.bucket');
+    }
 }

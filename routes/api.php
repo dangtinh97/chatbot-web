@@ -37,5 +37,6 @@ Route::group([
     ],function (){
         Route::post('defined',[\App\Http\Controllers\Admin\BlockController::class,'definedStore'])->name('api.defined.store');
     });
-
 });
+
+Route::post('/attachments',[\App\Http\Controllers\AttachmentController::class,'store'])->name('api.attachment-user.post');

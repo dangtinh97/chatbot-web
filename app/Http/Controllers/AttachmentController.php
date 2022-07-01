@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\UploadGoogleHelper;
+use App\Http\Responses\ResponseSuccess;
 use App\Services\Admin\AttachmentService;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,12 @@ class AttachmentController extends Controller
         $file = $request->file('file');
         $name = $request->get('name');
         $upload = $this->attachmentService->store($file,$name);
+//        sleep(3);
+//        $upload = new ResponseSuccess([
+//            'id' => rand(1,1000),
+//            'path' => '/chatbot/photoshop-onlinepng.png',
+//            'url' => 'https://storage.googleapis.com/datinee-dev/chatbot/photoshop-onlinepng.png'
+//        ]);
         return response()->json($upload->toArray());
 
     }

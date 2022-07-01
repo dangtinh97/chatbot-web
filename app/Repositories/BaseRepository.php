@@ -80,4 +80,25 @@ class BaseRepository
     {
         return $this->model::query()->firstOrCreate($cond, $data);
     }
+
+    /**
+     * @param array $data
+     *
+     * @return boolean
+     */
+    public function insert(array $data)
+    {
+        return $this->model::query()->insert($data);
+    }
+
+    /**
+     * @param string $column
+     * @param array  $data
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function whereIn(string $column,array $data)
+    {
+        return $this->model::query()->whereIn($column,$data)->get();
+    }
 }

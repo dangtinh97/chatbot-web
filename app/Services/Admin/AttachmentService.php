@@ -26,14 +26,18 @@ class AttachmentService
     public function store($file,string $name):ApiResponse
     {
         $mimeType = $file->getMimeType();
-        $name = "chatbot/".Str::slug($name).".".explode("/",$mimeType)[1];
+        $name = "chatbot/".Str::uuid()."-".Str::slug($name).".".explode("/",$mimeType)[1];
         $upload = UploadGoogleHelper::upload(file_get_contents($file),$name);
-        $this->attachmentRepository->create([
+
+        /** @var \App\Models\Attachment $create */
+        $create = $this->attachmentRepository->create([
             'path' => $upload['path'],
             'mime_type' => $mimeType,
             'disk' => env('GOOGLE_CLOUD_STORAGE_BUCKET'),
             'deleted_at' => null
         ]);
-        return new ResponseSuccess($upload);
+        return new ResponseSuccess(array_merge($upload,[
+            'id' => $create->id
+        ]));
     }
 }

@@ -73,6 +73,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - php artisan make:migration create_images_table
 - php artisan make:migration create_attachments_table
 - php artisan make:migration create_blocks_table
+- php artisan make:migration create_slide_images_table
 
 ```
 Superbalist/laravel-google-cloud-storage
