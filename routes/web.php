@@ -70,6 +70,11 @@ Route::get("/tinh-yeu-cua-anh",function (){
     return view('my-love');
 });
 
+Route::group([
+    'prefix' => 'shopee'
+],function (){
+   Route::get('/',[\App\Http\Controllers\ShopeeController::class,'index'])->name('shopee.index');
+});
 
 Route::get('/{any}',[\App\Http\Controllers\DashboardController::class,'index']);
 Route::get('',[\App\Http\Controllers\DashboardController::class,'index']);
