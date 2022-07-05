@@ -31,9 +31,17 @@ class DashboardController extends Controller
                 'name' => 'Ứng dụng',
                 'data' => [
                     $this->renderDashboard("Photoshop online", route('photoshop.online'),"https://storage.googleapis.com/datinee-dev/chatbot/photoshop-online.png"),
+                    $this->renderDashboard("Tạo ảnh slide đẹp tặng người ấy.", route('slide-anh-cua-tui'),"https://storage.googleapis.com/datinee-dev/chatbot/Screen%20Shot%202022-07-01%20at%2023.17.47.png"),
                 ]
             ],
-
+            [
+                'id' => 'other',
+                'name' => 'Nhiều hơn nữa',
+                'data' => [
+                    $this->renderDashboard("Shopee flash sale", route('shopee.index'),"https://cf.shopee.vn/file/de118843446fcd736b84fece80417d7c_xxhdpi"),
+                    ]
+            ],
+//slide-anh-cua-tui
         ];
 
         return view('index', compact('list'));

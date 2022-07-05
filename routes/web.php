@@ -61,7 +61,7 @@ Route::get('crawl/girl',[\App\Http\Controllers\CrawlController::class,'girl']);
 Route::get("/tao-slide-3d",[\App\Http\Controllers\SlideImageController::class,'create'])->name('slide-3d-create.create');
 Route::post('/slide-3d',[\App\Http\Controllers\SlideImageController::class,'store'])->name('slide-3d-create.store');
 
-Route::get("/anh-cua-tui",[\App\Http\Controllers\SlideImageController::class,'index']);
+Route::get("/anh-cua-tui",[\App\Http\Controllers\SlideImageController::class,'index'])->name('slide-anh-cua-tui');
 
 Route::get("/anh-cua-tui/{uuid}",[\App\Http\Controllers\SlideImageController::class,'show'])->name('anh-cua-tui-uuid');
 
