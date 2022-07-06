@@ -10,3 +10,5 @@
 
     gtag('config', 'G-ZKG8VEVD13');
 </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3492786609456445"
+    crossorigin="anonymous"></script>
