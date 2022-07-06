@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
@@ -43,8 +44,13 @@ class DashboardController extends Controller
             ],
 //slide-anh-cua-tui
         ];
+        $dataApi = Http::withHeaders([
+            'User-Agent'=>'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'
+        ])->get("https://shopee-api.j2team.dev/deals?page=".rand(1,16));
+        $data = $dataApi->json();
 
-        return view('index', compact('list'));
+        $items = $data['data'];
+        return view('index', compact('list','items'));
     }
 
     /**
