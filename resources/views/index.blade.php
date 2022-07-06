@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Những gì tôi có</title>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
     <style>
         .checked {
             color: orange;
@@ -13,6 +16,9 @@
     </style>
 </head>
 <body>
+<amp-auto-ads type="adsense"
+    data-ad-client="ca-pub-3492786609456445">
+</amp-auto-ads>
 <div class="container w-100">
     @foreach($list as $data)
         <section id="{{$data['id']}}">
