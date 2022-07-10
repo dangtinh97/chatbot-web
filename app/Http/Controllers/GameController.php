@@ -23,4 +23,9 @@ class GameController extends Controller
         }
         return view("2048.$agent");
     }
+
+    public function contra()
+    {
+        return view('game.contra');
+    }
 }
