@@ -47,8 +47,10 @@
 {{--            <button type="button" id="press-b" class="btn btn-lg btn-outline-success rounded-circle me-3">B</button>--}}
 {{--            <button type="button" id="press-a" class="btn btn-lg btn-outline-danger rounded-circle me-3">A</button>--}}
             <button class="btn btn-outline-info" style="width: max-content">
-                Phím Z => Bắn</p>
-                Phím X => Nhảy
+                Phím Z => Bắn<p></p>
+                Phím X => Nhảy<p></p>
+                Phím Enter => Start<p></p>
+                Phím Shift => Select<p></p>
             </button>
         </div>
     </div>
