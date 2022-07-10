@@ -12,7 +12,7 @@ canvas{
 }
 
 #control{
-    margin: 0 -10px;
+    /*margin: 0 -10px;*/
     width: 100%;
     justify-content: space-between;
     position: fixed;

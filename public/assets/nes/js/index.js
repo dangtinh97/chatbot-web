@@ -77,36 +77,36 @@ class Game {
             _this.releasePadButton(NesJs.Joypad.BUTTONS.B)
         })
         let joySetInterval = null
-        new JoyStick('joyDiv', {}, function (stickData) {
-            if (joySetInterval != null) clearInterval(joySetInterval)
-            if (stickData.cardinalDirection === 'C'){
-                if(_this.diagonal!==null){
-                    _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][0])
-                    _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][1])
-                    return _this.diagonal = null;
-                }
-
-                return  clearInterval(joySetInterval)
-            }
-            console.log(stickData.cardinalDirection)
-            if(['SE','SW','NW','NE'].indexOf(stickData.cardinalDirection)!==-1){
-                _this.diagonal = stickData.cardinalDirection;
-                _this.handlerKeyDown(_this.DEFAULT[stickData.cardinalDirection][0])
-                _this.handlerKeyDown(_this.DEFAULT[stickData.cardinalDirection][1])
-            }else {
-                if(_this.diagonal!==null){
-                    _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][0])
-                    _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][1])
-                     _this.diagonal = null;
-                }
-                joySetInterval = setInterval(function () {
-                    _this.releasePadButton(
-                        _this.DEFAULT[stickData.cardinalDirection]
-                    )
-                }, 0);
-            }
-
-        });
+        // new JoyStick('joyDiv', {}, function (stickData) {
+        //     if (joySetInterval != null) clearInterval(joySetInterval)
+        //     if (stickData.cardinalDirection === 'C'){
+        //         if(_this.diagonal!==null){
+        //             _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][0])
+        //             _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][1])
+        //             return _this.diagonal = null;
+        //         }
+        //
+        //         return  clearInterval(joySetInterval)
+        //     }
+        //     console.log(stickData.cardinalDirection)
+        //     if(['SE','SW','NW','NE'].indexOf(stickData.cardinalDirection)!==-1){
+        //         _this.diagonal = stickData.cardinalDirection;
+        //         _this.handlerKeyDown(_this.DEFAULT[stickData.cardinalDirection][0])
+        //         _this.handlerKeyDown(_this.DEFAULT[stickData.cardinalDirection][1])
+        //     }else {
+        //         if(_this.diagonal!==null){
+        //             _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][0])
+        //             _this.handlerKeyUp(_this.DEFAULT[_this.diagonal][1])
+        //              _this.diagonal = null;
+        //         }
+        //         joySetInterval = setInterval(function () {
+        //             _this.releasePadButton(
+        //                 _this.DEFAULT[stickData.cardinalDirection]
+        //             )
+        //         }, 0);
+        //     }
+        //
+        // });
     }
 
     handlerKeyDown(number){
