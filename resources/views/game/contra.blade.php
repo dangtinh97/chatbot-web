@@ -53,6 +53,7 @@
         </div>
     </div>
 </div>
+@include('incluces.analytics')
 {{--<script type="text/javascript" src="{{asset('/assets/nes/js/joy.min.js')}}"></script>--}}
 <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
