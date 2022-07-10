@@ -26,6 +26,6 @@ class GameController extends Controller
 
     public function contra()
     {
-        return view('game.contra');
+        return view('game.contra2');
     }
 }
