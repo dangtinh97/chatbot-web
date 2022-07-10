@@ -68,10 +68,12 @@ class Game {
             _this.releasePadButton(NesJs.Joypad.BUTTONS.START)
         })
 
-        $("#press-a").on('click', function () {
+        $("#press-a").on('click', function (e) {
+            e.preventDefault()
             _this.releasePadButton(NesJs.Joypad.BUTTONS.A)
         })
-        $("#press-b").on('click', function () {
+        $("#press-b").on('click', function (e) {
+            e.preventDefault()
             _this.releasePadButton(NesJs.Joypad.BUTTONS.B)
         })
         let joySetInterval = null
