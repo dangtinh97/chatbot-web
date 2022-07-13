@@ -112,4 +112,11 @@ class BaseRepository
     {
         return $this->model::query()->updateOrCreate($cond,$data);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query(){
+        return $this->model::query();
+    }
 }

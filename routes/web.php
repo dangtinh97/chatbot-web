@@ -53,6 +53,7 @@ Route::group([
         Route::get('/default',[\App\Http\Controllers\Admin\BlockController::class,'default'])->name('admin.block.default');
     });
     Route::resource('/attachments',\App\Http\Controllers\AttachmentController::class);
+    Route::get('setup-app',[\App\Http\Controllers\AdminController::class,'setupApp'])->name('admin.setup-app');
 
 });
 

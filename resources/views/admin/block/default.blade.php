@@ -1,5 +1,6 @@
 @extends('admin.layouts.app')
-@section('page-heading','Cấu hình block menu')
+@section('page-heading','Cấu hình block mặc định')
+@section('title','Cấu hình block mặc định')
 @section('style')
     <style>
         input[type=text]:focus {

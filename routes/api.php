@@ -37,6 +37,8 @@ Route::group([
     ],function (){
         Route::post('default',[\App\Http\Controllers\Admin\BlockController::class,'defaultStore'])->name('api.default.store');
     });
+    Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index'])->name('api.admin.dashboard.index');
+    Route::post('setup-app',[\App\Http\Controllers\AdminController::class,'storeSetupApp'])->name('api.admin.setup-app.store');
 });
 
 Route::post('/attachments',[\App\Http\Controllers\AttachmentController::class,'store'])->name('api.attachment-user.post');
