@@ -58,7 +58,7 @@ class FChatHelper
         $arr = json_decode($response,true);
         if(isset($arr['error']))
         {
-
+            return $response;
         }
         curl_close($curl);
         return $response;

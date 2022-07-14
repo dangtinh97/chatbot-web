@@ -54,6 +54,7 @@ Route::group([
     });
     Route::resource('/attachments',\App\Http\Controllers\AttachmentController::class);
     Route::get('setup-app',[\App\Http\Controllers\AdminController::class,'setupApp'])->name('admin.setup-app');
+    Route::get('send-broadcast',[\App\Http\Controllers\AdminController::class,'sendBroadcast']);
 
 });
 
