@@ -86,7 +86,7 @@
                 success:function (res){
                     $("#first").remove()
                     _this.attr('disabled',false)
-                    $("#result").append(res.data.html)
+                    $("#result").html(res.data.html)
                 }
             })
         })
