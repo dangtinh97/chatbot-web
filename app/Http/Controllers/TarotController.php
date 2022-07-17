@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Crawls\PhongThuySoHelper;
+use App\Http\Responses\ResponseSuccess;
 use App\Services\TarotService;
 use Illuminate\Http\Request;
 
@@ -38,5 +40,16 @@ class TarotController extends Controller
         $id = $service['id'];
         $url = config('app.url')."/boi-bai-tarot/$id";
         return view('tarot-daily',compact('data','id','url'));
+    }
+
+    public function boiTheoTen(Request $request)
+    {
+        if($request->expectsJson()){
+            $output = PhongThuySoHelper::crawl($request->get('name'));
+            return response()->json((new ResponseSuccess([
+                'html' => $output
+            ]))->toArray());
+        }
+        return view('others.boi-theo-ten');
     }
 }

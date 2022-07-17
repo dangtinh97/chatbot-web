@@ -18,6 +18,7 @@ class DashboardController extends Controller
                     $this->renderDashboard("Flappy bird", route('game.flappy-bird')),
                     $this->renderDashboard("Dino", route('game.dino')),
                     $this->renderDashboard("2048", route('game.2048')),
+                    $this->renderDashboard("Contra", route('game.contra'),'https://cdn1.hoanghamobile.com/tin-tuc/wp-content/uploads/2020/02/doan-ma-them-mang-trong-contra-1.jpg'),
                 ]
             ],
             [

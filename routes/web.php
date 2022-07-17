@@ -22,6 +22,7 @@ Route::get('sua-anh-online',function (){
 })->name('photoshop.online');
 
 Route::get('/boi-bai-tarot',[\App\Http\Controllers\TarotController::class,'index'])->name('other.tarot');
+Route::get('/boi-theo-ten',[\App\Http\Controllers\TarotController::class,'boiTheoTen'])->name('others.boi-theo-ten');
 
 Route::group([
     'prefix' => '/game'
