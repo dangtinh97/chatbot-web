@@ -32,6 +32,7 @@ Route::group([
     Route::get('/dino',[\App\Http\Controllers\GameController::class,'dino'])->name('game.dino');
     Route::get('/2048',[\App\Http\Controllers\GameController::class,'game2048'])->name('game.2048');
     Route::get('/contra',[\App\Http\Controllers\GameController::class,'contra'])->name('game.contra');
+    Route::get('/apple-worm',[\App\Http\Controllers\GameController::class,'appleWorm'])->name('game.apple-worm');
 });
 
 Route::group([

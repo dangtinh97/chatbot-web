@@ -28,4 +28,9 @@ class GameController extends Controller
     {
         return view('game.contra');
     }
+
+    public function appleWorm()
+    {
+        return view('apple-worm');
+    }
 }
